@@ -1,0 +1,2 @@
+"use strict";var locMessageStrings=[];var locManager={addString:function(key,value,escape){if(typeof escape!=='boolean'){escape=true;}
+locMessageStrings.push({key:key,value:value,escape:escape});}};var localizationStrings=JSON.parse(document.getElementById("localization_strings").textContent);Object.keys(localizationStrings).forEach(function(key){locManager.addString(key,localizationStrings[key].value,localizationStrings[key].shouldEscape);});window.idms=window.idms||{};window.idms.app_config=window.idms.app_config||{};window.idms.app_config.i18n_legacy=locMessageStrings;
