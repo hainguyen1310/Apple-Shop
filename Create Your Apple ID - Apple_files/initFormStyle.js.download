@@ -1,0 +1,1 @@
+"use strict";var formStyle=JSON.parse(document.getElementById("form_style_conf").textContent).formStyle;window.idms=window.idms||{};window.idms.app_config=window.idms.app_config||{};window.idms.app_config.idmswcConfig=window.idms.app_config.idmswcConfig||{};window.idms.app_config.idmswcConfig.formStyle=formStyle;
