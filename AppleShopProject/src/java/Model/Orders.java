@@ -1,29 +1,36 @@
+
 package Model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Orders {
-    private int ordersId;
-    private int userOrder;
+    private int orderID, userOrder;
     private LocalDate dateOrder;
-    private boolean status;
+    private String status;
 
     public Orders() {
     }
 
-    public Orders(int ordersId, int userOrder, LocalDate dateOrder, boolean status) {
-        this.ordersId = ordersId;
+    public Orders(int orderID, int userOrder, String dateOrder, String status) {
+        this.orderID = orderID;
         this.userOrder = userOrder;
-        this.dateOrder = dateOrder;
+        this.dateOrder = LocalDate.parse(dateOrder, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         this.status = status;
     }
 
-    public int getOrdersId() {
-        return ordersId;
+    public Orders(int userOrder, String dateOrder, String status) {
+        this.userOrder = userOrder;
+        this.dateOrder = LocalDate.parse(dateOrder, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.status = status;
     }
 
-    public void setOrdersId(int ordersId) {
-        this.ordersId = ordersId;
+    public int getOrderID() {
+        return orderID;
+    }
+
+    public void setOrderID(int orderID) {
+        this.orderID = orderID;
     }
 
     public int getUserOrder() {
@@ -34,19 +41,19 @@ public class Orders {
         this.userOrder = userOrder;
     }
 
-    public LocalDate getDateOrder() {
-        return dateOrder;
+    public String getDateOrder() {
+        return DateTimeFormatter.ofPattern("yyyy-MM-dd").format(dateOrder);
     }
 
     public void setDateOrder(LocalDate dateOrder) {
         this.dateOrder = dateOrder;
     }
 
-    public boolean isStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
     

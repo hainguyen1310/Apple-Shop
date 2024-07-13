@@ -1,35 +1,44 @@
+
 package Model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class News {
-    private int newsId;
-    private String title;
-    private String Description;
-    private String metacontent;
+    private int newsID;
+    private String title, description, metaContent;
     private LocalDate dateUpdate;
     private boolean status;
-    private String imageUrl;
-
-    public News(int newsId, String title, String Description, String metacontent, LocalDate dateUpdate, boolean status, String imageUrl) {
-        this.newsId = newsId;
-        this.title = title;
-        this.Description = Description;
-        this.metacontent = metacontent;
-        this.dateUpdate = dateUpdate;
-        this.status = status;
-        this.imageUrl = imageUrl;
-    }
+    private String imageURL;
 
     public News() {
     }
 
-    public int getNewsId() {
-        return newsId;
+    public News(int newsID, String title, String description, String metaContent, String dateUpdate, boolean status, String imageURL) {
+        this.newsID = newsID;
+        this.title = title;
+        this.description = description;
+        this.metaContent = metaContent;
+        this.dateUpdate = LocalDate.parse(dateUpdate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.status = status;
+        this.imageURL = imageURL;
     }
 
-    public void setNewsId(int newsId) {
-        this.newsId = newsId;
+    public News(String title, String description, String metaContent, String dateUpdate, boolean status, String imageURL) {
+        this.title = title;
+        this.description = description;
+        this.metaContent = metaContent;
+        this.dateUpdate = LocalDate.parse(dateUpdate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));;
+        this.status = status;
+        this.imageURL = imageURL;
+    }
+
+    public int getNewsID() {
+        return newsID;
+    }
+
+    public void setNewsID(int newsID) {
+        this.newsID = newsID;
     }
 
     public String getTitle() {
@@ -41,23 +50,23 @@ public class News {
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
-    public void setDescription(String Description) {
-        this.Description = Description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getMetacontent() {
-        return metacontent;
+    public String getMetaContent() {
+        return metaContent;
     }
 
-    public void setMetacontent(String metacontent) {
-        this.metacontent = metacontent;
+    public void setMetaContent(String metaContent) {
+        this.metaContent = metaContent;
     }
 
-    public LocalDate getDateUpdate() {
-        return dateUpdate;
+    public String getDateUpdate() {
+        return DateTimeFormatter.ofPattern("yyyy-MM-dd").format(dateUpdate);
     }
 
     public void setDateUpdate(LocalDate dateUpdate) {
@@ -72,12 +81,12 @@ public class News {
         this.status = status;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
     
 }

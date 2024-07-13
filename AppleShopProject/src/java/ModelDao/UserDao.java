@@ -1,146 +1,132 @@
+
 package ModelDao;
 
 import Connection.DBConnection;
-import Model.User;
-import java.sql.*;
+import Model.Users;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class UserDao {
-
-    //hàm logic check tài khoản đã tồn tại hay chưa
-    public static boolean validate(User u) {
-        boolean status = false;
-        PreparedStatement ps = null;
+    public static ArrayList<Users> getAllUsers() {
+        ArrayList<Users> list = new ArrayList<Users>();
         try {
             Connection con = DBConnection.getConnection();
-            ps = con.prepareStatement("Select * from Users where UserName = ? and Password = ?");
-            ps.setString(1, u.getUsername());
-            ps.setString(2, u.getPassword());
-            ResultSet rs = ps.executeQuery();
-            status = rs.next();
-        } catch (Exception e) {
-            System.out.println("Error" + e);
-        }
-        return status;
-    }
-
-    //CRUD - Create: Tạo mới tài khoản
-    public static int regis(User u) {
-        int status = 0;
-        if (validate(u)) {
-            return status;
-        } else {
-            try {
-                Connection con = DBConnection.getConnection();
-                PreparedStatement ps = con.prepareStatement("INSERT INTO Users (UserName, Password, Email, RoleID) VALUES (?,?,?,?)");
-                ps.setString(1, u.getUsername());
-                ps.setString(2, u.getPassword());
-                ps.setString(3, u.getEmail());
-                ps.setInt(4, u.getRoleId());
-                status = ps.executeUpdate();
-                con.close();
-            } catch (Exception e) {
-                System.out.println("Error" + e);
-            }
-            return status;
-        }
-    }
-
-    //CRUD Update: Cập nhập tài khoản
-    public static boolean update(User u) {
-        boolean status = false;
-        try {
-            Connection con = DBConnection.getConnection();
-            PreparedStatement ps = con.prepareStatement("update Users set UserName=?, Password=?, Email=?, RoleID=? where UserID=?");
-            ps.setString(1, u.getUsername());
-            ps.setString(2, u.getPassword());
-            ps.setString(3, u.getEmail());
-            ps.setInt(4, u.getRoleId());
-            ps.setInt(5, u.getUserId());
-            status = ps.executeUpdate() > 0;
-            con.close();
-        } catch (Exception e) {
-            System.out.println("Error" + e);
-        }
-        return status;
-    }
-
-    //CRUD Delete: Xóa tài khoản
-    public static int delete(int id) {
-        int status = 0;
-        try {
-            Connection con = DBConnection.getConnection();
-            PreparedStatement ps = con.prepareStatement("delete from Users where UserID=?");
-            ps.setInt(1, id);
-            status = ps.executeUpdate();
-            con.close();
-        } catch (Exception e) {
-            System.out.println("Error" + e);
-        }
-        return status;
-    }
-
-    //CRUD Read: xem danh sách tài khoản dựa trên Username
-    public static User getUserByUserID(int id) {
-        User u = new User();
-        try {
-            Connection con = DBConnection.getConnection();
-            PreparedStatement ps = con.prepareStatement("SELECT UserName, Password, Email, RoleID FROM Users WHERE UserID = ?");
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                u.setUserId(id);
-                u.setUsername(rs.getString(1));
-                u.setPassword(rs.getString(2));
-                u.setEmail(rs.getString(3));
-                u.setRoleId(rs.getInt(4));
-            }
-            con.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        return u;
-    }
-
-    //CRUD Read: xem toàn bộ danh sách tài khoản
-    public static ArrayList<User> getAllUsers() {
-        ArrayList<User> list = new ArrayList<User>();
-
-        try {
-            Connection con = DBConnection.getConnection();
-            PreparedStatement ps = con.prepareStatement("select * from Users");
-            ResultSet rs = ps.executeQuery();
+            CallableStatement cstmt = con.prepareCall("{call usp_User_getAll()}");
+            ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
-                User u = new User();
-                u.setUserId(rs.getInt(1));
-                u.setUsername(rs.getString(2));
-                u.setPassword(rs.getString(3));
-                u.setEmail(rs.getString(4));
-                u.setRoleId(rs.getInt(5));
-                list.add(u);
+                list.add(new Users(rs.getInt("UserID"), rs.getString("UserName"), rs.getString("Email")
+                , rs.getString("Tel"),rs.getString("Password"), rs.getBoolean("Status"), rs.getInt("RoleID"), 
+                rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Address"), rs.getString("Zipcode")));
             }
+            cstmt.close();
             con.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error" + e);
         }
-
         return list;
     }
-    public static int getRoleByUsername(String uname) {
-        int role = 0;
+
+    public static int addUser(Users user){
+        int status = 0;
         try {
             Connection con = DBConnection.getConnection();
-            PreparedStatement ps = con.prepareStatement("select RoleID from Users where Username=?");
-            ps.setString(1, uname);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                role = rs.getInt(1);
-            }
+            CallableStatement cstmt = con.prepareCall("{call usp_User_addUser(?,?,?,?,?,?)}");
+            cstmt.setString(1, user.getUserName());
+            cstmt.setString(2, user.getEmail());
+            cstmt.setString(3, user.getTel());
+            cstmt.setString(4, user.getPassword());
+            cstmt.setBoolean(5, user.isStatus());
+            cstmt.setInt(6, user.getRoleID());
+            ResultSet rs = cstmt.executeQuery();
+            status = cstmt.executeUpdate();
+            cstmt.close();
             con.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Error" + e);
         }
-        return role;
+        return status;
+    }
+    
+    public static int updateUsers(Users user){
+        int status = 0;
+        try {
+            Connection con = DBConnection.getConnection();
+            CallableStatement cstmt = con.prepareCall("{call usp_User_updateUser(?,?,?,?,?,?,?)}");
+            cstmt.setInt(1, user.getUserID());
+            cstmt.setString(2, user.getUserName());
+            cstmt.setString(3, user.getEmail());
+            cstmt.setString(4, user.getTel());
+            cstmt.setString(5, user.getPassword());
+            cstmt.setBoolean(6, user.isStatus());      
+            cstmt.setInt(7, user.getRoleID());
+            ResultSet rs = cstmt.executeQuery();
+            status = cstmt.executeUpdate();
+            cstmt.close();
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        }
+        return status;
+    }
+    
+    public static int updateFullUsers(Users user){
+        int status = 0;
+        try {
+            Connection con = DBConnection.getConnection();
+            CallableStatement cstmt = con.prepareCall("{call usp_User_updateUser(?,?,?,?,?,?,?,?,?,?,?)}");
+            cstmt.setInt(1, user.getUserID());
+            cstmt.setString(2, user.getUserName());
+            cstmt.setString(3, user.getEmail());
+            cstmt.setString(4, user.getTel());
+            cstmt.setString(5, user.getPassword());
+            cstmt.setBoolean(6, user.isStatus());      
+            cstmt.setInt(7, user.getRoleID());
+            cstmt.setString(5, user.getPassword());
+            ResultSet rs = cstmt.executeQuery();
+            status = cstmt.executeUpdate();
+            cstmt.close();
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        }
+        return status;
+    }
+    
+    public static int deleteUsers(int UsersID){
+        int status = 0;
+        try {
+            Connection con = DBConnection.getConnection();
+            CallableStatement cstmt = con.prepareCall("{call usp_User_deleteUser(?)}");
+            cstmt.setInt(1, UsersID);
+            ResultSet rs = cstmt.executeQuery();
+            status = cstmt.executeUpdate();
+            cstmt.close();
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        }
+        return status;
+    }
+    
+    public static Users getUsersbyID(int UsersID){
+        Users user = new Users();
+        try {
+            Connection con = DBConnection.getConnection();
+            CallableStatement cstmt = con.prepareCall("{call usp_User_getByUserID(?)}");
+            cstmt.setInt(1, UsersID);
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                user = new Users(rs.getInt("UserID"), rs.getString("UserName"), rs.getString("Email")
+                , rs.getString("Tel"),rs.getString("Password"), rs.getBoolean("Status"), rs.getInt("RoleID"), 
+                rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Address"), rs.getString("Zipcode"));
+            }
+            cstmt.close();
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        }
+        return user;
     }
 }

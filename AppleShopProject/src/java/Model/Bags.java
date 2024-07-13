@@ -1,35 +1,35 @@
+
 package Model;
 
 public class Bags {
-    private int userId;
-    private int productId;
+    private int userID, productID;
     private boolean status;
     private int stock;
 
     public Bags() {
     }
 
-    public Bags(int userId, int productId, boolean status, int stock) {
-        this.userId = userId;
-        this.productId = productId;
+    public Bags(int userID, int productID, boolean status, int stock) {
+        this.userID = userID;
+        this.productID = productID;
         this.status = status;
         this.stock = stock;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getUserID() {
+        return userID;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
-    public int getProductId() {
-        return productId;
+    public int getProductID() {
+        return productID;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setProductID(int productID) {
+        this.productID = productID;
     }
 
     public boolean isStatus() {

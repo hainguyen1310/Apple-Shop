@@ -1,65 +1,77 @@
+
 package Model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Product {
-    private int productId;
-    private String productname;
-    private int categoryId;
-    private long price;
+    private int productID;
+    private String productName;
+    private int categoryID;
+    private float money;
     private int stock;
     private LocalDate dateUpdate;
     private boolean status;
-    private String imageUrl;
-    private String description;
-    private String metacontent;
+    private String imageURL, description, metaContent;
 
     public Product() {
     }
 
-    public Product(int productId, String productname, int categoryId, long price, int stock, LocalDate dateUpdate, boolean status, String imageUrl, String description, String metacontent) {
-        this.productId = productId;
-        this.productname = productname;
-        this.categoryId = categoryId;
-        this.price = price;
+    public Product(int productID, String productName, int categoryID, float money, int stock, String dateUpdate, boolean status, String imageURL, String description, String metaContent) {
+        this.productID = productID;
+        this.productName = productName;
+        this.categoryID = categoryID;
+        this.money = money;
         this.stock = stock;
-        this.dateUpdate = dateUpdate;
+        this.dateUpdate = LocalDate.parse(dateUpdate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         this.status = status;
-        this.imageUrl = imageUrl;
+        this.imageURL = imageURL;
         this.description = description;
-        this.metacontent = metacontent;
+        this.metaContent = metaContent;
     }
 
-    public int getProductId() {
-        return productId;
+    public Product(String productName, int categoryID, float money, int stock, String dateUpdate, boolean status, String imageURL, String description, String metaContent) {
+        this.productName = productName;
+        this.categoryID = categoryID;
+        this.money = money;
+        this.stock = stock;
+        this.dateUpdate = LocalDate.parse(dateUpdate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.status = status;
+        this.imageURL = imageURL;
+        this.description = description;
+        this.metaContent = metaContent;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public int getProductID() {
+        return productID;
     }
 
-    public String getProductname() {
-        return productname;
+    public void setProductID(int productID) {
+        this.productID = productID;
     }
 
-    public void setProductname(String productname) {
-        this.productname = productname;
+    public String getProductName() {
+        return productName;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public int getCategoryID() {
+        return categoryID;
     }
 
-    public long getPrice() {
-        return price;
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
     }
 
-    public void setPrice(long price) {
-        this.price = price;
+    public float getMoney() {
+        return money;
+    }
+
+    public void setMoney(float money) {
+        this.money = money;
     }
 
     public int getStock() {
@@ -70,8 +82,8 @@ public class Product {
         this.stock = stock;
     }
 
-    public LocalDate getDateUpdate() {
-        return dateUpdate;
+    public String getDateUpdate() {
+        return DateTimeFormatter.ofPattern("yyyy-MM-dd").format(dateUpdate);
     }
 
     public void setDateUpdate(LocalDate dateUpdate) {
@@ -86,12 +98,12 @@ public class Product {
         this.status = status;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public String getDescription() {
@@ -102,12 +114,12 @@ public class Product {
         this.description = description;
     }
 
-    public String getMetacontent() {
-        return metacontent;
+    public String getMetaContent() {
+        return metaContent;
     }
 
-    public void setMetacontent(String metacontent) {
-        this.metacontent = metacontent;
+    public void setMetaContent(String metaContent) {
+        this.metaContent = metaContent;
     }
     
 }
