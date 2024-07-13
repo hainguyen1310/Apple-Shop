@@ -49,7 +49,7 @@
     cursor:default
 }
 #globalheader :focus-visible{
-    outline:2px solid var(--sk-focus-color, #0071E3);
+    outline:2px solid var(--sk-focus-color, #0071e3);
     outline-offset:var(--sk-focus-offset, 1px)
 }
 #globalheader ::-moz-focus-inner{
@@ -660,13 +660,11 @@ html,body{
 }
 #globalnav .globalnav-link:focus-visible{
     --sk-focus-offset: -7px;
-    outline:2px solid var(--sk-focus-color, #0071E3);
+    outline:2px solid var(--sk-focus-color, #0071e3);
     outline-offset:var(--sk-focus-offset, 1px)
 }
-@media (pointer: coarse){
-    #globalnav .globalnav-link:focus-visible{
-        outline:none
-    }
+#globalnav .globalnav-link[data-focus-method=touch],#globalnav .globalnav-link[data-focus-method=mouse]{
+    outline:none
 }
 #globalnav .globalnav-item-flyout-open .globalnav-link{
     color:var(--r-globalnav-color-hover);
@@ -833,16 +831,16 @@ html,body{
     }
 }
 @media (hover: hover){
-    #globalnav.globalnav-with-menu-open:not(.globalnav-animating) .globalnav-link:hover .globalnav-link-chevron,#globalnav.globalnav-with-menu-open:not(.globalnav-animating) .globalnav-link:active .globalnav-link-chevron,#globalnav.globalnav-with-menu-open:not(.globalnav-animating) .globalnav-link:focus-visible .globalnav-link-chevron{
+    #globalnav.globalnav-with-menu-open:not(.globalnav-animating) .globalnav-link:hover .globalnav-link-chevron,#globalnav.globalnav-with-menu-open:not(.globalnav-animating) .globalnav-link:active .globalnav-link-chevron,#globalnav.globalnav-with-menu-open:not(.globalnav-animating) .globalnav-link[data-focus-method=key] .globalnav-link-chevron{
         visibility:visible;
         transition:visibility .24s step-start;
         opacity:1;
         animation:globalnav-chevron-slide-in-hover .24s cubic-bezier(.4,0,.6,1) both
     }
-    .globalnav-with-submenu-open #globalnav.globalnav-with-menu-open:not(.globalnav-animating) .globalnav-link:hover .globalnav-link-chevron,.globalnav-with-submenu-open #globalnav.globalnav-with-menu-open:not(.globalnav-animating) .globalnav-link:active .globalnav-link-chevron,.globalnav-with-submenu-open #globalnav.globalnav-with-menu-open:not(.globalnav-animating) .globalnav-link:focus-visible .globalnav-link-chevron{
+    .globalnav-with-submenu-open #globalnav.globalnav-with-menu-open:not(.globalnav-animating) .globalnav-link:hover .globalnav-link-chevron,.globalnav-with-submenu-open #globalnav.globalnav-with-menu-open:not(.globalnav-animating) .globalnav-link:active .globalnav-link-chevron,.globalnav-with-submenu-open #globalnav.globalnav-with-menu-open:not(.globalnav-animating) .globalnav-link[data-focus-method=key] .globalnav-link-chevron{
         animation:globalnav-chevron-hover-off .24s cubic-bezier(.4,0,.6,1) both
     }
-    #globalnav.globalnav-with-menu-open:not(.globalnav-animating) .globalnav-link:hover .globalnav-link-chevron:hover,#globalnav.globalnav-with-menu-open:not(.globalnav-animating) .globalnav-link:active .globalnav-link-chevron:hover,#globalnav.globalnav-with-menu-open:not(.globalnav-animating) .globalnav-link:focus-visible .globalnav-link-chevron:hover{
+    #globalnav.globalnav-with-menu-open:not(.globalnav-animating) .globalnav-link:hover .globalnav-link-chevron:hover,#globalnav.globalnav-with-menu-open:not(.globalnav-animating) .globalnav-link:active .globalnav-link-chevron:hover,#globalnav.globalnav-with-menu-open:not(.globalnav-animating) .globalnav-link[data-focus-method=key] .globalnav-link-chevron:hover{
         color:var(--r-globalnav-color-hover)
     }
 }
@@ -1659,7 +1657,7 @@ html,body{
 }
 #globalnav .globalnav-submenu-link:focus-visible{
     --sk-focus-offset: -7px;
-    outline:2px solid var(--sk-focus-color, #0071E3);
+    outline:2px solid var(--sk-focus-color, #0071e3);
     outline-offset:var(--sk-focus-offset, 1px)
 }
 @media only screen and (min-width: 834px){
@@ -1801,6 +1799,9 @@ html.globalnav-noscroll-long{
     --r-globalnav-search-list-item-hover-color: #000000;
     --r-globalnav-search-list-item-nonsearchterm-color: rgb(110, 110, 115);
     --r-globalnav-search-list-item-searchterm-color: #333336
+}
+#globalnav .globalnav-search.globalnav-item-flyout-change-next .globalnav-flyout{
+    visibility:hidden
 }
 #globalnav .globalnav-search .globalnav-flyout-content{
     display:block
@@ -2249,7 +2250,7 @@ html.globalnav-noscroll-long{
     fill:var(--r-globalnav-search-list-item-hover-color)
 }
 #globalnav .globalnav-searchresults-list-link:focus-visible{
-    outline:2px solid var(--sk-focus-color, #0071E3);
+    outline:2px solid var(--sk-focus-color, #0071e3);
     outline-offset:var(--sk-focus-offset, 1px)
 }
 @media only screen and (max-width: 833px){
@@ -2996,7 +2997,8 @@ html.globalmessage-segment-visible #globalmessage-segment{
     --sk-pin-color: rgb(110, 110, 115);
     --sk-pin-caption-color: rgb(134, 134, 139)
 }
-
+.theme-dark .quote{
+}
 .theme-dark .sosumi{
     --sk-sosumi-text-color: rgba(255, 255, 255, .56);
     --sk-sosumi-link-color: rgba(255, 255, 255, .8)
@@ -3165,7 +3167,9 @@ html.globalmessage-segment-visible #globalmessage-segment{
     --sk-pin-color: rgb(134, 134, 139);
     --sk-pin-caption-color: rgb(110, 110, 115)
 }
+.theme-light .quote{
 
+}
 .theme-light .sosumi{
     --sk-sosumi-text-color: rgba(0, 0, 0, .56);
     --sk-sosumi-link-color: rgba(0, 0, 0, .72)
@@ -3331,7 +3335,8 @@ html.globalmessage-segment-visible #globalmessage-segment{
     --sk-pin-color: rgb(110, 110, 115);
     --sk-pin-caption-color: rgb(134, 134, 139)
 }
-
+#globalnav-bag .theme-dark .quote{
+}
 #globalnav-bag .theme-dark .sosumi{
     --sk-sosumi-text-color: rgba(255, 255, 255, .56);
     --sk-sosumi-link-color: rgba(255, 255, 255, .8)
@@ -3500,7 +3505,8 @@ html.globalmessage-segment-visible #globalmessage-segment{
     --sk-pin-color: rgb(134, 134, 139);
     --sk-pin-caption-color: rgb(110, 110, 115)
 }
-
+#globalnav-bag .theme-light .quote{
+}
 #globalnav-bag .theme-light .sosumi{
     --sk-sosumi-text-color: rgba(0, 0, 0, .56);
     --sk-sosumi-link-color: rgba(0, 0, 0, .72)
@@ -4796,7 +4802,7 @@ html[dir=rtl] #globalnav-bag .ac-bag-flyout-container .ac-gn-bagview-nav-image-c
     color:var(--sk-body-text-color)
 }
 :root{
-    --sk-focus-color: #0071E3;
+    --sk-focus-color: #0071e3;
     --sk-focus-color-alt: rgb(0, 0, 0);
     --sk-focus-offset: 1px;
     --sk-focus-offset-container: 3px
@@ -4805,13 +4811,15 @@ html[dir=rtl] #globalnav-bag .ac-bag-flyout-container .ac-gn-bagview-nav-image-c
     --r-sk-start: left;
     --r-sk-end: right;
     --r-sk-safe-area-inset-start: env(safe-area-inset-left);
-    --r-sk-safe-area-inset-end: env(safe-area-inset-right)
+    --r-sk-safe-area-inset-end: env(safe-area-inset-right);
+    --r-sk-logical-factor: 1
 }
 #globalnav[dir=rtl]{
     --r-sk-start: right;
     --r-sk-end: left;
     --r-sk-safe-area-inset-start: env(safe-area-inset-right);
-    --r-sk-safe-area-inset-end: env(safe-area-inset-left)
+    --r-sk-safe-area-inset-end: env(safe-area-inset-left);
+    --r-sk-logical-factor: -1
 }
 .justify-content-start{
     justify-content:flex-start
