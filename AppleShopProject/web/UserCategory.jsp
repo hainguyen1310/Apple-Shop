@@ -56,14 +56,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <%
-                                            String username = null;
-                                            String role = null;
 
-                                            if (session != null) {
-                                                username = (String) session.getAttribute("username");
-                                                role = (String) session.getAttribute("role");
-                                            }%>
                                     <div class="form-group" style="clear:both">&nbsp;</div>
                                     <div class="form-group">
                                         <table class="table table-striped table-hover table-bordered" id="editable-sample">
@@ -74,11 +67,9 @@
                                                     <th>Email</th>
                                                     <th>Password</th>
                                                     <th>Role</th>
-                                                        <% if ("admin".equals(role)) {
-                                                        %>
+                                                        
                                                     <th>Action</th>
-                                                        <%
-                                                }%>
+                                                      
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -91,12 +82,10 @@
                                                         <td class="center"><c:out value="${list.get(i).getPassword()}"/></td>
                                                         <td class="center"><c:out value="${list.get(i).getRoleID()}"/></td>
                                                         <my:CustomTagsHandler/>
-                                                        <% if ("admin".equals(role)) {
-                                                        %>
+                                                        
                                                         <td class="center"><a class="btn btn-danger" href="DispatcherServlet?page=EditUserForm.jsp&id=${list.get(i).getUserID()}"><i class="fa fa-edit"></i></a>&nbsp;
                                                             <a class="btn btn-danger" href="DispatcherServlet?page=DeleteUser.jsp&id=${list.get(i).getUserID()}"><i class="fa fa-times"></i></a></td>
-                                                            <%
-                                                }%> 
+                                                   
                                                     </tr>
                                                 </c:forEach>
                                             </tbody>

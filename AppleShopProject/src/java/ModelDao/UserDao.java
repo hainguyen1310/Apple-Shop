@@ -29,20 +29,25 @@ public class UserDao {
     
     public static ArrayList<Users> getAllUsers() {
         ArrayList<Users> list = new ArrayList<Users>();
+
         try {
             Connection con = DBConnection.getConnection();
-            CallableStatement cstmt = con.prepareCall("{call usp_User_getAll()}");
-            ResultSet rs = cstmt.executeQuery();
+            PreparedStatement ps = con.prepareStatement("select * from Users");
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Users(rs.getInt("UserID"), rs.getString("UserName"), rs.getString("Email")
-                , rs.getString("Tel"),rs.getString("Password"), rs.getBoolean("Status"), rs.getInt("RoleID"), 
-                rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Address"), rs.getString("Zipcode")));
+                Users u = new Users();
+                u.setUserID(rs.getInt(1));
+                u.setUserName(rs.getString(2));
+                u.setPassword(rs.getString(3));
+                u.setEmail(rs.getString(4));
+                u.setRoleID(rs.getInt(5));
+                list.add(u);
             }
-            cstmt.close();
             con.close();
         } catch (Exception e) {
-            System.out.println("Error" + e);
+            e.printStackTrace();
         }
+
         return list;
     }
 
