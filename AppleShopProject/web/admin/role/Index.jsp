@@ -5,8 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="Model.Users"%>
-<%@page import="ModelDao.UserDao"%>
+<%@page import="Model.Role"%>
+<%@page import="ModelDao.RoleDao"%>
 <jsp:useBean id="list" class="java.util.ArrayList" scope="session"/>
 <jsp:useBean id="user" class="Model.Users" scope="session"/>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
@@ -51,7 +51,7 @@
                                 <div class="adv-table editable-table ">
                                     <div class="clearfix">
                                         <div class="btn-group">
-                                            <a href="UserServlet?page=AddUserForm.jsp" id="editable-sample_new" class="btn btn-primary">
+                                            <a href="RoleServlet?page=Create.jsp" id="editable-sample_new" class="btn btn-primary">
                                                 Add New <i class="fa fa-plus"></i>
                                             </a>
                                         </div>
@@ -62,34 +62,18 @@
                                         <table class="table table-striped table-hover table-bordered" id="editable-sample">
                                             <thead>
                                                 <tr>
-                                                    <th>Name</th>
-                                                    <th>Tel</th>
-                                                    <th>Email</th>
-                                                    <th>Password</th>
-                                                    <th>Role</th>
-                                                    <th>Status</th>
-                                                    <th>Full Name</th>
-                                                    <th>Address</th>
-                                                    <th>Zipcode</th>
-                                                    <th>Action</th>
-                                                      
+                                                    <th>RoleID</th>
+                                                    <th>Role Name</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
 
                                                 <c:forEach var="i" begin="0" end="${list.size()-1}">
                                                     <tr class="">
-                                                        <td class="center"><c:out value="${list.get(i).getUserName()}"/></td>
-                                                        <td class="center"><c:out value="${list.get(i).getTel()}"/></td>
-                                                        <td class="center"><c:out value="${list.get(i).getEmail()}"/></td>
-                                                        <td class="center"><c:out value="${list.get(i).getPassword()}"/></td>
                                                         <td class="center"><c:out value="${list.get(i).getRoleID()}"/></td>
-                                                        <td class="center"><c:out value="${list.get(i).isStatus()}"/></td>
-                                                        <td class="center"><c:out value="${list.get(i).getFullName()}"/></td>
-                                                        <td class="center"><c:out value="${list.get(i).getAddress()}"/></td>
-                                                        <td class="center"><c:out value="${list.get(i).getZipcode()}"/></td>
-                                                        <td class="center"><a class="btn btn-danger" href="UserServlet?page=EditUserForm.jsp&id=${list.get(i).getUserID()}"><i class="fa fa-edit"></i></a>&nbsp;
-                                                            <a class="btn btn-danger" href="UserServlet?page=DeleteUser.jsp&id=${list.get(i).getUserID()}"><i class="fa fa-times"></i></a></td>
+                                                        <td class="center"><c:out value="${list.get(i).getRoleName()}"/></td>
+                                                        <td class="center"><a class="btn btn-danger" href="RoleServlet?page=Edit.jsp&id=${list.get(i).getRoleID()}"><i class="fa fa-edit"></i></a>&nbsp;
+                                                            <a class="btn btn-danger" href="RoleServlet?page=Delete.jsp&id=${list.get(i).getRoleID()}"><i class="fa fa-times"></i></a></td>
                                                    
                                                     </tr>
                                                 </c:forEach>

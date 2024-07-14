@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<jsp:useBean id="user" class="Model.Users" scope="session"/>
+<jsp:useBean id="role" class="Model.Role" scope="session"/>
 <!DOCTYPE html>
 <html>
     <head>

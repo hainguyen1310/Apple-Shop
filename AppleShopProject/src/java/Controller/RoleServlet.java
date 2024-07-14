@@ -4,8 +4,8 @@
  */
 package Controller;
 
-import Model.Users;
-import ModelDao.UserDao;
+import Model.Role;
+import ModelDao.RoleDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -61,30 +61,22 @@ public class RoleServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String page = request.getParameter("page");
-        if (page.equals("EditUserForm.jsp")) {
+        if (page.equals("Edit.jsp")) {
             int id = Integer.parseInt(request.getParameter("id"));
-            Users existingUser = UserDao.getUsersbyID(id);
-            request.getSession().setAttribute("user", existingUser);
-        } else if (page.equals("DeleteUser.jsp")) {
+            Role existing = RoleDao.getRolebyID(id);
+            request.getSession().setAttribute("role", existing);
+        } else if (page.equals("Delete.jsp")) {
             int id = Integer.parseInt(request.getParameter("id"));
-            UserDao.delete(id);
-            page = "UserCategory.jsp";
+            RoleDao.deleteRole(id);
+            page = "Index.jsp";
         }
-        request.setAttribute("bodyPage", "user/" + page);
-        ArrayList<Users> list = UserDao.getAllUsers();
+        request.setAttribute("bodyPage", "role/" + page);
+        ArrayList<Role> list = RoleDao.getAllRole();
         request.getSession().setAttribute("list", list);
         RequestDispatcher rd = request.getRequestDispatcher("AdminPage.jsp");
         rd.forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -92,133 +84,49 @@ public class RoleServlet extends HttpServlet {
 
         try {
             switch (result) {
-                case "Sign in":
-                    SignIn(request, response);
-                    break;
-                case "Register":
-                    Regis(request, response);
-                    break;
                 case "Add New":
-                    AddUser(request, response);
+                    AddRole(request, response);
                     break;
                 case "Edit":
                     showEditForm(request, response);
                     break;
                 case "Update":
-                    UpdateUser(request, response);
+                    UpdateRole(request, response);
                     break;
-//                default:
-//                    listStudent(request, response);
-//                    break;
             }
         } catch (Exception ex) {
             throw new ServletException(ex);
         }
     }
 
-    private void SignIn(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String uname = request.getParameter("username");
-        String upass = request.getParameter("password");
+    private void AddRole(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String rname = request.getParameter("rolename");
 
-        Users user = new Users();
-        user.setUserName(uname);
-        user.setPassword(upass);
-        user.setRoleID(UserDao.getRoleByUsername(uname));
-        HttpSession session = request.getSession();
-        if (UserDao.validate(user)) {
-            session.setAttribute("pass", user.getPassword());
-            session.setAttribute("role", user.getRoleID());
-            session.setAttribute("username", uname);
-            request.setAttribute("bodyPage", "BodyPage.jsp");
-            RequestDispatcher rd = request.getRequestDispatcher("AdminPage.jsp");
-            rd.forward(request, response);
-        } else {
-            session.setAttribute("login_msg", "Sorry, Username or Password is incorrect");
-            RequestDispatcher rd = request.getRequestDispatcher("LoginPage.jsp");
-            rd.include(request, response);
-        }
-    }
 
-    private void Regis(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String uname = request.getParameter("username");
-        String upass = request.getParameter("password");
-        String uemail = request.getParameter("email");
-
-        Users user = new Users();
-        user.setUserName(uname);
-        user.setPassword(upass);
-        user.setEmail(uemail);
-        user.setRoleID(2);
-        int status = UserDao.addUser(user);
-        HttpSession session = request.getSession();
+        Role role = new Role();
+        role.setRoleName(rname);
+        int status = RoleDao.addRole(role);
         if (status > 0) {
-            session.setAttribute("username", uname);
-            RequestDispatcher rd = request.getRequestDispatcher("/admin/html/AdminPage.jsp");
-            rd.forward(request, response);
-        } else {
-            session.setAttribute("regis_msg", "Sorry, Username already exist");
-            RequestDispatcher rd = request.getRequestDispatcher("RegisterForm.jsp");
-            rd.include(request, response);
-        }
-    }
-
-    private void AddUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String uname = request.getParameter("username");
-        String upass = request.getParameter("password");
-        String uemail = request.getParameter("email");
-        String utel = request.getParameter("tel");
-        String ufname = request.getParameter("firstn");
-        String ulname = request.getParameter("lastn");
-        String uaddress = request.getParameter("address");
-        String uzip = request.getParameter("zipcode");
-
-        Users user = new Users();
-        user.setUserName(uname);
-        user.setPassword(upass);
-        user.setEmail(uemail);
-        user.setRoleID(2);
-        user.setAddress(uaddress);
-        user.setTel(utel);
-        user.setLastName(ulname);
-        user.setFirstName(ufname);
-        user.setZipcode(uzip);
-        int status = UserDao.addUser(user);
-        if (status > 0) {
-            request.setAttribute("bodyPage", "user/UserCategory.jsp");
-            ArrayList<Users> list = UserDao.getAllUsers();
+            request.setAttribute("bodyPage", "role/Index.jsp");
+            ArrayList<Role> list = RoleDao.getAllRole();
             request.getSession().setAttribute("list", list);
             RequestDispatcher rd = request.getRequestDispatcher("AdminPage.jsp");
             rd.forward(request, response);
         }
     }
 
-    private void UpdateUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private void UpdateRole(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
-        String uname = request.getParameter("username");
-        String upass = request.getParameter("password");
-        String uemail = request.getParameter("email");
-        int urole = Integer.parseInt(request.getParameter("role"));
-        String tel = request.getParameter("tel");
-        String fname = request.getParameter("firstn");
-        String lname = request.getParameter("lastn");
-        String address = request.getParameter("address");
-        String zipcode = request.getParameter("zipcode");
+        String rname = request.getParameter("rolename");
 
-        Users user = new Users();
-        user.setUserID(id);
-        user.setUserName(uname);
-        user.setPassword(upass);
-        user.setEmail(uemail);
-        user.setRoleID(urole);
-        user.setAddress(address);
-        user.setTel(tel);
-        user.setLastName(fname);
-        user.setFirstName(lname);
-        user.setZipcode(zipcode);
-        int status = UserDao.updateUsers(user);
+        Role user = new Role();
+        user.setRoleID(id);
+        user.setRoleName(rname);
+
+        int status = RoleDao.updateRole(user);
         if (status >0) {
-            request.setAttribute("bodyPage", "user/UserCategory.jsp");
-            ArrayList<Users> list = UserDao.getAllUsers();
+            request.setAttribute("bodyPage", "role/Index.jsp");
+            ArrayList<Role> list = RoleDao.getAllRole();
             request.getSession().setAttribute("list", list);
             RequestDispatcher rd = request.getRequestDispatcher("AdminPage.jsp");
             rd.forward(request, response);
@@ -226,9 +134,9 @@ public class RoleServlet extends HttpServlet {
     }
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
-        Users existingUser = UserDao.getUsersbyID(id);
-        request.setAttribute("user", existingUser);
-        request.setAttribute("bodyPage", "EditUserForm.jsp");
+        Role existing = RoleDao.getRolebyID(id);
+        request.setAttribute("role", existing);
+        request.setAttribute("bodyPage", "Edit.jsp");
         RequestDispatcher rd = request.getRequestDispatcher("AdminPage.jsp");
         rd.forward(request, response);
     }
