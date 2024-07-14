@@ -3,27 +3,31 @@ package ModelDao;
 
 import Connection.DBConnection;
 import Model.Product;
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.sql.*;
 
 public class ProductDao {
-    public static ArrayList<Product> getAllProduct() {
+    public static ArrayList<Product> getAllProduct() throws SQLException {
+        Statement stmt = null;
+        ResultSet rs = null;
         ArrayList<Product> list = new ArrayList<Product>();
         try {
             Connection con = DBConnection.getConnection();
-            CallableStatement cstmt = con.prepareCall("{call usp_Product_getAll()}");
-            ResultSet rs = cstmt.executeQuery();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("Select * from Product");
             while (rs.next()) {
                 list.add(new Product(rs.getInt("ProductID"), rs.getString("ProductName"), rs.getInt("CategoryID"),
                 rs.getFloat("Price"), rs.getInt("Stock"), rs.getString("DateUpdate"), rs.getBoolean("Status"),
                 rs.getString("ImageURL"), rs.getString("Description"), rs.getString("MetaContent")));
             }
-            cstmt.close();
             con.close();
         } catch (Exception e) {
             System.out.println("Error" + e);
+        }finally {
+            stmt.close();
+            rs.close();
         }
         return list;
     }
@@ -32,7 +36,8 @@ public class ProductDao {
         int status = 0;
         try {
             Connection con = DBConnection.getConnection();
-            CallableStatement cstmt = con.prepareCall("{call usp_Product_addProduct(?,?,?,?,?,?,?,?)}");
+            PreparedStatement cstmt = con.prepareCall("Insert into Product(ProductName,CategoryID,Price,Stock,Status,ImageURL,Description,MetaContent)"
+                    + " values (?,?,?,?,?,?,?,?)");
             cstmt.setString(1, product.getProductName());
             cstmt.setInt(2, product.getCategoryID());
             cstmt.setFloat(3, product.getMoney());
@@ -55,12 +60,15 @@ public class ProductDao {
         int status = 0;
         try {
             Connection con = DBConnection.getConnection();
-            CallableStatement cstmt = con.prepareCall("{call usp_Product_updateProduct(?,?,?,?,?,?,?,?,?)}");
-            cstmt.setInt(1, product.getProductID());
-            cstmt.setString(2, product.getProductName());
-            cstmt.setInt(3, product.getCategoryID());
-            cstmt.setFloat(4, product.getMoney());
-            cstmt.setInt(5, product.getStock());
+            PreparedStatement cstmt = con.prepareCall("update Product set ProductName = ?, CategoryID = ?, "
+                    + "Price = ?, Stock = ?, DateUpdate = ?, Status = ?, ImageURL = ?, "
+                    + "Description = ?, MetaContent = ? where ProductID = ?");
+            cstmt.setInt(10, product.getProductID());
+            cstmt.setString(1, product.getProductName());
+            cstmt.setInt(2, product.getCategoryID());
+            cstmt.setFloat(3, product.getMoney());
+            cstmt.setInt(4, product.getStock());
+            cstmt.setString(5, product.getDateUpdate());
             cstmt.setBoolean(6, product.isStatus());
             cstmt.setString(7, product.getImageURL());
             cstmt.setString(8, product.getDescription());
@@ -79,7 +87,7 @@ public class ProductDao {
         int status = 0;
         try {
             Connection con = DBConnection.getConnection();
-            CallableStatement cstmt = con.prepareCall("{call usp_Product_deleteProduct(?)}");
+            PreparedStatement cstmt = con.prepareCall("Delete from Product where ProductID=?");
             cstmt.setInt(1, ProductID);
             ResultSet rs = cstmt.executeQuery();
             status = cstmt.executeUpdate();
@@ -95,7 +103,7 @@ public class ProductDao {
         Product product = new Product();
         try {
             Connection con = DBConnection.getConnection();
-            CallableStatement cstmt = con.prepareCall("{call usp_Product_getByProductID(?)}");
+            PreparedStatement cstmt = con.prepareCall("Select* from Product where ProductID=?");
             cstmt.setInt(1, ProductID);
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
