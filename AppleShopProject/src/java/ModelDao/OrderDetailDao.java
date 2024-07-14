@@ -20,7 +20,7 @@ public class OrderDetailDao {
             rs = stmt.executeQuery("Select * from OrderDetail");
             while (rs.next()) {
                 list.add(new OrderDetail(rs.getInt("OrderID"), rs.getInt("ProductID"),
-                        rs.getInt("Stock"), rs.getFloat("PriceOrder")));
+                        rs.getInt("StockOrder"), rs.getFloat("PriceOrder")));
             }
             con.close();
         } catch (Exception e) {
@@ -93,7 +93,7 @@ public class OrderDetailDao {
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
                 orderdetail = new OrderDetail(rs.getInt("OrderID"), rs.getInt("ProductID"),
-                        rs.getInt("Stock"), rs.getFloat("PriceOrder"));
+                        rs.getInt("StockOrder"), rs.getFloat("PriceOrder"));
             }
             cstmt.close();
             con.close();

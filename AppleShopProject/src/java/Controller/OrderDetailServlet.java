@@ -4,12 +4,18 @@
  */
 package Controller;
 
+import Model.Bags;
+import Model.OrderDetail;
+import ModelDao.BagsDao;
+import ModelDao.OrderDetailDao;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 /**
  *
@@ -55,7 +61,23 @@ public class OrderDetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String page = request.getParameter("page");
+        if (page.equals("Edit.jsp")) {
+            int prid = Integer.parseInt(request.getParameter("prid"));
+            int oid = Integer.parseInt(request.getParameter("oid"));
+            OrderDetail odetail = OrderDetailDao.getOrderDetailbyID(prid,oid);
+            request.getSession().setAttribute("odetail", odetail);
+        } else if (page.equals("Delete.jsp")) {
+            int prid = Integer.parseInt(request.getParameter("prid"));
+            int oid = Integer.parseInt(request.getParameter("oid"));
+            OrderDetailDao.deleteOrderDetail(prid,oid);
+            page = "Index.jsp";
+        }
+        request.setAttribute("bodyPage", "orderdetail/" + page);
+        ArrayList<OrderDetail> list = OrderDetailDao.getAllOrderDetail();
+        request.getSession().setAttribute("list", list);
+        RequestDispatcher rd = request.getRequestDispatcher("AdminPage.jsp");
+        rd.forward(request, response);
     }
 
     /**
@@ -69,17 +91,55 @@ public class OrderDetailServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String result = request.getParameter("submit");
+
+        try {
+            switch (result) {
+                case "Add New":
+                    AddOrderDetail(request, response);
+                    break;
+                case "Update":
+                    UpdateOrderDetail(request, response);
+                    break;
+//                default:
+//                    listStudent(request, response);
+//                    break;
+            }
+        } catch (Exception ex) {
+            throw new ServletException(ex);
+        }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    private void AddOrderDetail(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        int orderid = Integer.parseInt(request.getParameter("orderid"));
+        int productid = Integer.parseInt(request.getParameter("productid"));
+        int stock = Integer.parseInt(request.getParameter("stock"));
+        float price = Float.parseFloat(request.getParameter("price"));
+        OrderDetail odetail = new OrderDetail(orderid,productid,stock,price);
+        int status = OrderDetailDao.addOrderDetail(odetail);
+        if (status > 0) {
+            request.setAttribute("bodyPage", "orderdetail/Index.jsp");
+            ArrayList<OrderDetail> list = OrderDetailDao.getAllOrderDetail();
+            request.getSession().setAttribute("list", list);
+            RequestDispatcher rd = request.getRequestDispatcher("AdminPage.jsp");
+            rd.forward(request, response);
+        }
+    }
 
+    private void UpdateOrderDetail(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        int orderid = Integer.parseInt(request.getParameter("orderid"));
+        int productid = Integer.parseInt(request.getParameter("productid"));
+        int stock = Integer.parseInt(request.getParameter("stock"));
+        float price = Float.parseFloat(request.getParameter("price"));
+
+        OrderDetail odetail = new OrderDetail(orderid,productid,stock,price);
+        int status = OrderDetailDao.updateOrderDetail(odetail);
+        if (status >0) {
+            request.setAttribute("bodyPage", "orderdetail/Index.jsp");
+            ArrayList<OrderDetail> list = OrderDetailDao.getAllOrderDetail();
+            request.getSession().setAttribute("list", list);
+            RequestDispatcher rd = request.getRequestDispatcher("AdminPage.jsp");
+            rd.forward(request, response);
+        }
+    }
 }
