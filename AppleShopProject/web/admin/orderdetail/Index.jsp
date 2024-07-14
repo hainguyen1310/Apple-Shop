@@ -5,11 +5,11 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="Model.Orders"%>
-<%@page import="Model.Users"%>
-<%@page import="ModelDao.UserDao"%>
+<%@page import="Model.Product"%>
+<%@page import="Model.OrderDetail"%>
+<%@page import="ModelDao.ProductDao"%>
 <jsp:useBean id="list" class="java.util.ArrayList" scope="session"/>
-<jsp:useBean id="order" class="Model.Orders" scope="session"/>
+<jsp:useBean id="odetail" class="Model.OrderDetail" scope="session"/>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
@@ -45,13 +45,13 @@
                     <div class="col-sm-12">
                         <section class="panel">
                             <header class="panel-heading">
-                                Order Management
+                                Order Detail Management
                             </header>
                             <div class="panel-body">
                                 <div class="adv-table editable-table ">
                                     <div class="clearfix">
                                         <div class="btn-group">
-                                            <a href="OrdersServlet?page=Add.jsp" id="editable-sample_new" class="btn btn-primary">
+                                            <a href="OrderDetailServlet?page=Add.jsp" id="editable-sample_new" class="btn btn-primary">
                                                 Add New <i class="fa fa-plus"></i>
                                             </a>
                                         </div>
@@ -63,9 +63,9 @@
                                             <thead>
                                                 <tr>
                                                     <th>Order ID</th>
-                                                    <th>User Order</th>
-                                                    <th>Date Order</th>
-                                                    <th>Status</th>
+                                                    <th>Product ID</th>
+                                                    <th>Stock</th>
+                                                    <th>Price Order</th>
                                                     <th>Action</th>   
                                                 </tr>
                                             </thead>
@@ -74,11 +74,11 @@
                                                 <c:forEach var="i" begin="0" end="${list.size()-1}">
                                                     <tr class="">
                                                         <td class="center"><c:out value="${list.get(i).getOrderID()}"/></td>
-                                                        <td class="center"><c:out value="${UserDao.getUsersbyID(list.get(i).getUserOrder()).getFullName()}"/></td>
-                                                        <td class="center"><c:out value="${list.get(i).getDateOrder()}"/></td>
-                                                        <td class="center"><c:out value="${list.get(i).getStatus()}"/></td>
-                                                        <td class="center"><a class="btn btn-danger" href="OrdersServlet?page=Edit.jsp&id=${list.get(i).getOrderID()}"><i class="fa fa-edit"></i></a>&nbsp;
-                                                            <a class="btn btn-danger" href="OrdersServlet?page=Delete.jsp&id=${list.get(i).getOrderID()}"><i class="fa fa-times"></i></a></td>
+                                                        <td class="center"><c:out value="${ProductDao.getProductbyID(list.get(i).getProductID()).getProductName()}"/></td>
+                                                        <td class="center"><c:out value="${list.get(i).getStock()}"/></td>
+                                                        <td class="center"><c:out value="${list.get(i).getPriceOrder()}"/></td>
+                                                        <td class="center"><a class="btn btn-danger" href="OrderDetailServlet?page=Edit.jsp&prid=${list.get(i).getProductID()}&oid=${list.get(i).getOrderID()}"><i class="fa fa-edit"></i></a>&nbsp;
+                                                            <a class="btn btn-danger" href="OrderDetailServlet?page=Delete.jsp&prid=${list.get(i).getProductID()}&oid=${list.get(i).getOrderID()}"><i class="fa fa-times"></i></a></td>
                                                     </tr>
                                                 </c:forEach>
                                             </tbody>
