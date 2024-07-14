@@ -5,10 +5,28 @@ import Connection.DBConnection;
 import Model.Users;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class UserDao {
+    
+    public static boolean validate(Users u) {
+        boolean status = false;
+        PreparedStatement ps = null;
+        try {
+            Connection con = DBConnection.getConnection();
+            ps = con.prepareStatement("Select * from Users where UserName = ? and Password = ?");
+            ps.setString(1, u.getUserName());
+            ps.setString(2, u.getPassword());
+            ResultSet rs = ps.executeQuery();
+            status = rs.next();
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        }
+        return status;
+    }
+    
     public static ArrayList<Users> getAllUsers() {
         ArrayList<Users> list = new ArrayList<Users>();
         try {
@@ -128,5 +146,21 @@ public class UserDao {
             System.out.println("Error" + e);
         }
         return user;
+    }
+    public static int getRoleByUsername(String uname) {
+        int role = 0;
+        try {
+            Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement("select RoleID from Users where UserName=?");
+            ps.setString(1, uname);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                role = rs.getInt(1);
+            }
+            con.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return role;
     }
 }
