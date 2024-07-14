@@ -38,8 +38,6 @@
             <jsp:include page="MenuLeft.jsp" /> 
             <!--main content start-->
             <div>
-                alo alo
-                
                 <jsp:include page="${bodyPage}"/>
             </div>
             <!--main content end-->

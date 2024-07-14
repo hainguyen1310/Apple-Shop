@@ -25,42 +25,14 @@
                                     <span>Category</span>
                                 </a>
                                 <ul class="sub">
-                                    <li><a href="#"><i class="fa fa-folder-o"></i>Product Category</a></li>
-                                    <li><a href="#"><i class="fa fa-folder-o"></i>News Category</a></li>
-                                    <li><a href="UserServlet?page=UserCategory.jsp"><i class="fa fa-folder-o"></i>User Category</a></li>
-                                </ul>
-                            </li>
-                            <li class="sub-menu">
-                                <a href="#">
-                                    <i class="fa fa-book"></i>
-                                    <span>Category</span>
-                                </a>
-                                <ul class="sub">
-                                    <li><a href="#"><i class="fa fa-folder-o"></i>Product</a></li>
+                                    <li><a href="#"><i class="fa fa-folder-o"></i>Category</a></li>
                                     <li><a href="#"><i class="fa fa-folder-o"></i>News</a></li>
-                                    <li><a href="#"><i class="fa fa-folder-o"></i>User Category</a></li>
-                                </ul>
-                            </li>
-                            <li class="sub-menu">
-                                <a href="#">
-                                    <i class="fa fa-book"></i>
-                                    <span>Category</span>
-                                </a>
-                                <ul class="sub">
-                                    <li><a href="#"><i class="fa fa-folder-o"></i>Product Category</a></li>
-                                    <li><a href="#"><i class="fa fa-folder-o"></i>News Category</a></li>
-                                    <li><a href="#"><i class="fa fa-folder-o"></i>User Category</a></li>
-                                </ul>
-                            </li>
-                            <li class="sub-menu">
-                                <a href="#">
-                                    <i class="fa fa-book"></i>
-                                    <span>Category</span>
-                                </a>
-                                <ul class="sub">
-                                    <li><a href="#"><i class="fa fa-folder-o"></i>Product Category</a></li>
-                                    <li><a href="#"><i class="fa fa-folder-o"></i>News Category</a></li>
-                                    <li><a href="#"><i class="fa fa-folder-o"></i>User Category</a></li>
+                                    <li><a href="UserServlet?page=UserCategory.jsp"><i class="fa fa-folder-o"></i>User</a></li>
+                                    <li><a href="UserServlet?page=UserCategory.jsp"><i class="fa fa-folder-o"></i>Role</a></li>
+                                    <li><a href="UserServlet?page=UserCategory.jsp"><i class="fa fa-folder-o"></i>Product</a></li>
+                                    <li><a href="UserServlet?page=UserCategory.jsp"><i class="fa fa-folder-o"></i>Orders</a></li>
+                                    <li><a href="UserServlet?page=UserCategory.jsp"><i class="fa fa-folder-o"></i>OrderDetail</a></li>
+                                    <li><a href="UserServlet?page=UserCategory.jsp"><i class="fa fa-folder-o"></i>Bags</a></li>
                                 </ul>
                             </li>
                         </ul>            
