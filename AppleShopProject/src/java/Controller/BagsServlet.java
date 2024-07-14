@@ -4,12 +4,18 @@
  */
 package Controller;
 
+import Model.Bags;
+import Model.Orders;
+import ModelDao.BagsDao;
+import ModelDao.OrdersDao;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 /**
  *
@@ -55,7 +61,23 @@ public class BagsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String page = request.getParameter("page");
+        if (page.equals("Edit.jsp")) {
+            int prid = Integer.parseInt(request.getParameter("prid"));
+            int uid = Integer.parseInt(request.getParameter("uid"));
+            Bags bag = BagsDao.getBagsbyID(prid,uid);
+            request.getSession().setAttribute("bag", bag);
+        } else if (page.equals("Delete.jsp")) {
+            int prid = Integer.parseInt(request.getParameter("prid"));
+            int uid = Integer.parseInt(request.getParameter("uid"));
+            BagsDao.deleteBags(prid,uid);
+            page = "Index.jsp";
+        }
+        request.setAttribute("bodyPage", "bags/" + page);
+        ArrayList<Bags> list = BagsDao.getAllBags();
+        request.getSession().setAttribute("list", list);
+        RequestDispatcher rd = request.getRequestDispatcher("AdminPage.jsp");
+        rd.forward(request, response);
     }
 
     /**
@@ -69,17 +91,55 @@ public class BagsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+         String result = request.getParameter("submit");
+
+        try {
+            switch (result) {
+                case "Add New":
+                    AddBags(request, response);
+                    break;
+                case "Update":
+                    UpdateBags(request, response);
+                    break;
+//                default:
+//                    listStudent(request, response);
+//                    break;
+            }
+        } catch (Exception ex) {
+            throw new ServletException(ex);
+        }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    private void AddBags(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        int userid = Integer.parseInt(request.getParameter("userid"));
+        int productid = Integer.parseInt(request.getParameter("productid"));
+        int stock = Integer.parseInt(request.getParameter("stock"));
+        boolean status = Boolean.parseBoolean(request.getParameter("status"));
+        Bags bag = new Bags(userid,productid,status,stock);
+        int status1 = BagsDao.addBags(bag);
+        if (status1 > 0) {
+            request.setAttribute("bodyPage", "bags/Index.jsp");
+            ArrayList<Bags> list = BagsDao.getAllBags();
+            request.getSession().setAttribute("list", list);
+            RequestDispatcher rd = request.getRequestDispatcher("AdminPage.jsp");
+            rd.forward(request, response);
+        }
+    }
 
+    private void UpdateBags(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        int userid = Integer.parseInt(request.getParameter("userid"));
+        int productid = Integer.parseInt(request.getParameter("productid"));
+        int stock = Integer.parseInt(request.getParameter("stock"));
+        boolean status = Boolean.parseBoolean(request.getParameter("status"));
+
+        Bags bag = new Bags(userid,productid,status,stock);
+        int status1 = BagsDao.updateBags(bag);
+        if (status1 >0) {
+            request.setAttribute("bodyPage", "bags/Index.jsp");
+            ArrayList<Bags> list = BagsDao.getAllBags();
+            request.getSession().setAttribute("list", list);
+            RequestDispatcher rd = request.getRequestDispatcher("AdminPage.jsp");
+            rd.forward(request, response);
+        }
+    }
 }

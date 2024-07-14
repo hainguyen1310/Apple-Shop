@@ -12,6 +12,11 @@ public class Orders {
     public Orders() {
     }
 
+    public Orders(int userOrder, String status) {
+        this.userOrder = userOrder;
+        this.status = status;
+    }
+
     public Orders(int orderID, int userOrder, String dateOrder, String status) {
         this.orderID = orderID;
         this.userOrder = userOrder;

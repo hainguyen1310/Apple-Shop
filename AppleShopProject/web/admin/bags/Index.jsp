@@ -5,11 +5,13 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="Model.Orders"%>
+<%@page import="Model.Product"%>
+<%@page import="Model.Bags"%>
 <%@page import="Model.Users"%>
 <%@page import="ModelDao.UserDao"%>
+<%@page import="ModelDao.ProductDao"%>
 <jsp:useBean id="list" class="java.util.ArrayList" scope="session"/>
-<jsp:useBean id="order" class="Model.Orders" scope="session"/>
+<jsp:useBean id="bag" class="Model.Bags" scope="session"/>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
@@ -45,13 +47,13 @@
                     <div class="col-sm-12">
                         <section class="panel">
                             <header class="panel-heading">
-                                Order Management
+                                Bags Management
                             </header>
                             <div class="panel-body">
                                 <div class="adv-table editable-table ">
                                     <div class="clearfix">
                                         <div class="btn-group">
-                                            <a href="OrdersServlet?page=Add.jsp" id="editable-sample_new" class="btn btn-primary">
+                                            <a href="BagsServlet?page=Add.jsp" id="editable-sample_new" class="btn btn-primary">
                                                 Add New <i class="fa fa-plus"></i>
                                             </a>
                                         </div>
@@ -62,10 +64,10 @@
                                         <table class="table table-striped table-hover table-bordered" id="editable-sample">
                                             <thead>
                                                 <tr>
-                                                    <th>Order ID</th>
-                                                    <th>User Order</th>
-                                                    <th>Date Order</th>
+                                                    <th>User ID</th>
+                                                    <th>Product ID</th>
                                                     <th>Status</th>
+                                                    <th>Stock</th>
                                                     <th>Action</th>   
                                                 </tr>
                                             </thead>
@@ -73,12 +75,12 @@
 
                                                 <c:forEach var="i" begin="0" end="${list.size()-1}">
                                                     <tr class="">
-                                                        <td class="center"><c:out value="${list.get(i).getOrderID()}"/></td>
-                                                        <td class="center"><c:out value="${UserDao.getUsersbyID(list.get(i).getUserOrderID()).getFullName()}"/></td>
-                                                        <td class="center"><c:out value="${list.get(i).getDateOrder()}"/></td>
-                                                        <td class="center"><c:out value="${list.get(i).getStatus()}"/></td>
-                                                        <td class="center"><a class="btn btn-danger" href="OrdersServlet?page=Edit.jsp&id=${list.get(i).getOrderID()}"><i class="fa fa-edit"></i></a>&nbsp;
-                                                            <a class="btn btn-danger" href="OrdersServlet?page=Delete.jsp&id=${list.get(i).getOrderID()}"><i class="fa fa-times"></i></a></td>
+                                                        <td class="center"><c:out value="${UserDao.getUsersbyID(list.get(i).getUserID()).getFullName()}"/></td>
+                                                        <td class="center"><c:out value="${ProductDao.getProductbyID(list.get(i).getProductID()).getProductName()}"/></td>
+                                                        <td class="center"><c:out value="${list.get(i).isStatus()}"/></td>
+                                                        <td class="center"><c:out value="${list.get(i).getStock()}"/></td>
+                                                        <td class="center"><a class="btn btn-danger" href="BagsServlet?page=Edit.jsp&prid=${list.get(i).getProductID()}&uid=${list.get(i).getUserID()}"><i class="fa fa-edit"></i></a>&nbsp;
+                                                            <a class="btn btn-danger" href="BagsServlet?page=Delete.jsp&prid=${list.get(i).getProductID()}&uid=${list.get(i).getUserID()}"><i class="fa fa-times"></i></a></td>
                                                     </tr>
                                                 </c:forEach>
                                             </tbody>

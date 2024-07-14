@@ -47,7 +47,7 @@ public class OrdersDao {
         int status = 0;
         try {
             Connection con = DBConnection.getConnection();
-            PreparedStatement cstmt = con.prepareCall("update Orders set UserOrder = ?, Status = ?, DateOrder = ? where OrderID = @orderID");
+            PreparedStatement cstmt = con.prepareCall("update Orders set UserOrder = ?, Status = ?, DateOrder = ? where OrderID = ?");
             cstmt.setInt(4, order.getOrderID());
             cstmt.setInt(1, order.getUserOrder());
             cstmt.setString(2, order.getStatus());
@@ -84,7 +84,7 @@ public class OrdersDao {
             cstmt.setInt(1, OrdersID);
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
-                order = new Orders(rs.getInt("OrdersID"),rs.getInt("UserOrder"),rs.getString("DateOrder"),
+                order = new Orders(rs.getInt("OrderID"),rs.getInt("UserOrder"),rs.getString("DateOrder"),
                         rs.getString("Status"));
             }
             cstmt.close();
