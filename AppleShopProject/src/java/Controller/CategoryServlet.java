@@ -4,7 +4,9 @@
  */
 package Controller;
 
+import Model.Category;
 import Model.News;
+import ModelDao.CategoryDao;
 import ModelDao.NewsDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -19,7 +21,7 @@ import java.util.ArrayList;
  *
  * @author kivil
  */
-public class NewsServlet extends HttpServlet {
+public class CategoryServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +40,10 @@ public class NewsServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet NewsServlet</title>");
+            out.println("<title>Servlet CategoryServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet NewsServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CategoryServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,15 +64,15 @@ public class NewsServlet extends HttpServlet {
         String page = request.getParameter("page");
         if (page.equals("Edit.jsp")) {
             int id = Integer.parseInt(request.getParameter("id"));
-            News existing = NewsDao.getNewsbyID(id);
-            request.getSession().setAttribute("news", existing);
+            Category existing = CategoryDao.getCategorybyID(id);
+            request.getSession().setAttribute("category", existing);
         } else if (page.equals("Delete.jsp")) {
             int id = Integer.parseInt(request.getParameter("id"));
-            NewsDao.deleteNews(id);
+            CategoryDao.deleteCategory(id);
             page = "Index.jsp";
         }
-        request.setAttribute("bodyPage", "news/" + page);
-        ArrayList<News> list = NewsDao.getAllNews();
+        request.setAttribute("bodyPage", "category/" + page);
+        ArrayList<Category> list = CategoryDao.getAllCategory();
         request.getSession().setAttribute("list", list);
         RequestDispatcher rd = request.getRequestDispatcher("AdminPage.jsp");
         rd.forward(request, response);
@@ -94,9 +96,6 @@ public class NewsServlet extends HttpServlet {
                 case "Add New":
                     Add(request, response);
                     break;
-                case "Edit":
-                    showEditForm(request, response);
-                    break;
                 case "Update":
                     Update(request, response);
                     break;
@@ -107,20 +106,14 @@ public class NewsServlet extends HttpServlet {
     }
 
     private void Add(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String title = request.getParameter("title");
-        String description = request.getParameter("description");
-        String metaContent = request.getParameter("metaContent");
-        String imageURL = request.getParameter("imageURL");
-        News news = new News();
-        news.setTitle(title);
-        news.setDescription(description);
-        news.setMetaContent(metaContent);
-        news.setImageURL(imageURL);
-        news.setStatus(true);
-        int status = NewsDao.addNews(news);
+        String cname = request.getParameter("categoryName");
+
+        Category cat = new Category();
+        cat.setCategoryName(cname);
+        int status = CategoryDao.addCategory(cat);
         if (status > 0) {
-            request.setAttribute("bodyPage", "news/Index.jsp");
-            ArrayList<News> list = NewsDao.getAllNews();
+            request.setAttribute("bodyPage", "category/Index.jsp");
+            ArrayList<Category> list = CategoryDao.getAllCategory();
             request.getSession().setAttribute("list", list);
             RequestDispatcher rd = request.getRequestDispatcher("AdminPage.jsp");
             rd.forward(request, response);
@@ -129,34 +122,19 @@ public class NewsServlet extends HttpServlet {
 
     private void Update(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
-        String title = request.getParameter("title");
-        String description = request.getParameter("description");
-        String metaContent = request.getParameter("metaContent");
-        String imageURL = request.getParameter("imageURL");
+        String cname = request.getParameter("categoryName");
 
-        News news = new News();
-        news.setNewsID(id);
-        news.setTitle(title);
-        news.setDescription(description);
-        news.setMetaContent(metaContent);
-        news.setImageURL(imageURL);
-        news.setStatus(true);
-        int status = NewsDao.updateNews(news);
-        if (status > 0) {
-            request.setAttribute("bodyPage", "news/Index.jsp");
-            ArrayList<News> list = NewsDao.getAllNews();
+        Category cat = new Category();
+        cat.setCategoryID(id);
+        cat.setCategoryName(cname);
+
+        int status = CategoryDao.updateCategory(cat);
+        if (status >0) {
+            request.setAttribute("bodyPage", "category/Index.jsp");
+            ArrayList<Category> list = CategoryDao.getAllCategory();
             request.getSession().setAttribute("list", list);
             RequestDispatcher rd = request.getRequestDispatcher("AdminPage.jsp");
             rd.forward(request, response);
         }
-    }
-
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        News existing = NewsDao.getNewsbyID(id);
-        request.setAttribute("news", existing);
-        request.setAttribute("bodyPage", "Edit.jsp");
-        RequestDispatcher rd = request.getRequestDispatcher("AdminPage.jsp");
-        rd.forward(request, response);
     }
 }

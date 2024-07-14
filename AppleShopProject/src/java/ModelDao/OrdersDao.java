@@ -16,7 +16,7 @@ public class OrdersDao {
             PreparedStatement ps = con.prepareStatement("Select * from Orders");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Orders(rs.getInt("OrdersID"),rs.getInt("UserOrder"),rs.getString("DateOrder"),
+                list.add(new Orders(rs.getInt("OrderID"),rs.getInt("UserOrder"),rs.getString("DateOrder"),
                         rs.getString("Status")));
             }
             ps.close();

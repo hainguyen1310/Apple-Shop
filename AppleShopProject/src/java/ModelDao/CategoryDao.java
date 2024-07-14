@@ -33,7 +33,6 @@ public class CategoryDao {
             Connection con = DBConnection.getConnection();
             PreparedStatement cstmt = con.prepareStatement("INSERT INTO Category (CategoryName) VALUES (?)");
             cstmt.setString(1, category.getCategoryName());
-            ResultSet rs = cstmt.executeQuery();
             status = cstmt.executeUpdate();
             cstmt.close();
             con.close();
@@ -50,7 +49,6 @@ public class CategoryDao {
             PreparedStatement cstmt = con.prepareStatement("update Category set CategoryName=? where CategoryID=?");
             cstmt.setString(1, category.getCategoryName());
             cstmt.setInt(2, category.getCategoryID());
-            ResultSet rs = cstmt.executeQuery();
             status = cstmt.executeUpdate();
             cstmt.close();
             con.close();
@@ -66,7 +64,6 @@ public class CategoryDao {
             Connection con = DBConnection.getConnection();
             PreparedStatement cstmt = con.prepareStatement("delete from Category where CategoryID=?");
             cstmt.setInt(1, CategoryID);
-            ResultSet rs = cstmt.executeQuery();
             status = cstmt.executeUpdate();
             cstmt.close();
             con.close();

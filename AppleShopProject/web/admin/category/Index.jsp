@@ -1,18 +1,20 @@
 <%-- 
-    Document   : Index
-    Created on : Jul 14, 2024, 11:01:26 PM
-    Author     : PC
+    Document   : ProductCategory
+    Created on : May 27, 2024, 11:02:02 AM
+    Author     : kivil
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="Model.Orders"%>
+<%@page import="Model.Category"%>
+<%@page import="ModelDao.CategoryDao"%>
 <jsp:useBean id="list" class="java.util.ArrayList" scope="session"/>
-<jsp:useBean id="order" class="Model.Orders" scope="session"/>
+<jsp:useBean id="news" class="Model.News" scope="session"/>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="ThemeBucket">
@@ -32,7 +34,7 @@
         <link href="css/style-responsive.css" rel="stylesheet" />
     </head>
     <body>
-        <section id="container" >
+    <section id="container" >
 
         <!--main content start-->
         <section id="main-content">
@@ -43,13 +45,13 @@
                     <div class="col-sm-12">
                         <section class="panel">
                             <header class="panel-heading">
-                                Order Management
+                                Quản lí người dùng
                             </header>
                             <div class="panel-body">
                                 <div class="adv-table editable-table ">
                                     <div class="clearfix">
                                         <div class="btn-group">
-                                            <a href="OrdersServlet?page=Add.jsp" id="editable-sample_new" class="btn btn-primary">
+                                            <a href="CategoryServlet?page=Create.jsp" id="editable-sample_new" class="btn btn-primary">
                                                 Add New <i class="fa fa-plus"></i>
                                             </a>
                                         </div>
@@ -60,23 +62,19 @@
                                         <table class="table table-striped table-hover table-bordered" id="editable-sample">
                                             <thead>
                                                 <tr>
-                                                    <th>Order ID</th>
-                                                    <th>User Order</th>
-                                                    <th>Date Order</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>   
+                                                    <th>CategoryID</th>
+                                                    <th>Category Name</th>
+                                                    <th>Action<th>
                                                 </tr>
                                             </thead>
                                             <tbody>
 
                                                 <c:forEach var="i" begin="0" end="${list.size()-1}">
                                                     <tr class="">
-                                                        <td class="center"><c:out value="${list.get(i).getOrderID()}"/></td>
-                                                        <td class="center"><c:out value="${list.get(i).getUserOrder()}"/></td>
-                                                        <td class="center"><c:out value="${list.get(i).getDateOrder()}"/></td>
-                                                        <td class="center"><c:out value="${list.get(i).getStatus()}"/></td>
-                                                        <td class="center"><a class="btn btn-danger" href="OrdersServlet?page=Edit.jsp&id=${list.get(i).getOrderID()}"><i class="fa fa-edit"></i></a>&nbsp;
-                                                            <a class="btn btn-danger" href="OrdersServlet?page=Delete.jsp&id=${list.get(i).getOrderID()}"><i class="fa fa-times"></i></a></td>
+                                                        <td class="center"><c:out value="${list.get(i).getCategoryID()}"/></td>
+                                                        <td class="center"><c:out value="${list.get(i).getCategoryName()}"/></td>
+                                                        <td class="center"><a class="btn btn-danger" href="CategoryServlet?page=Edit.jsp&id=${list.get(i).getCategoryID()}"><i class="fa fa-edit"></i></a>&nbsp;
+                                                            <a class="btn btn-danger" href="CategoryServlet?page=Delete.jsp&id=${list.get(i).getCategoryID()}"><i class="fa fa-times"></i></a></td>
                                                     </tr>
                                                 </c:forEach>
                                             </tbody>
@@ -100,5 +98,5 @@
             EditableTable.init();
         });
     </script>
-    </body>
+</body>
 </html>
