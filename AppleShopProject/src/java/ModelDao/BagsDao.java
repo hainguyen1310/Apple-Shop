@@ -2,7 +2,6 @@ package ModelDao;
 
 import Connection.DBConnection;
 import Model.Bags;
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +18,7 @@ public class BagsDao {
         try {
             Connection con = DBConnection.getConnection();
             stmt = con.createStatement();
-            rs = stmt.executeQuery("Select * from Orders");
+            rs = stmt.executeQuery("Select * from Bags");
             while (rs.next()) {
                 list.add(new Bags(rs.getInt("UserID"), rs.getInt("ProductID"), rs.getBoolean("Status"),
                         rs.getInt("Stock")));
@@ -60,10 +59,10 @@ public class BagsDao {
             Connection con = DBConnection.getConnection();
             PreparedStatement cstmt = con.prepareCall("update Bags set Status = ?, Stock = ?"
                     + "where UserID = ? and ProductID = ?");
-            cstmt.setInt(1, bags.getUserID());
-            cstmt.setInt(2, bags.getProductID());
-            cstmt.setBoolean(3, bags.isStatus());
-            cstmt.setInt(4, bags.getStock());
+            cstmt.setInt(3, bags.getUserID());
+            cstmt.setInt(4, bags.getProductID());
+            cstmt.setBoolean(1, bags.isStatus());
+            cstmt.setInt(2, bags.getStock());
             ResultSet rs = cstmt.executeQuery();
             status = cstmt.executeUpdate();
             cstmt.close();
