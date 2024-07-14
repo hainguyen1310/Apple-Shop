@@ -79,8 +79,8 @@ public class UserDao {
         return status;
     }
 
-    public static boolean updateUsers(Users u) {
-        boolean status = false;
+    public static int updateUsers(Users u) {
+        int status = 0;
         try {
             Connection con = DBConnection.getConnection();
             PreparedStatement ps = con.prepareStatement("update Users set UserName=?, Password=?, Email=?, RoleID=?,Tel=?, FirstName=?, LastName=?, Address=?, Zipcode=? where UserID=?");
@@ -94,7 +94,7 @@ public class UserDao {
             ps.setString(8, u.getAddress());
             ps.setString(9, u.getZipcode());
             ps.setInt(10, u.getUserID());
-            status = ps.executeUpdate() > 0;
+            status = ps.executeUpdate();
             con.close();
         } catch (Exception e) {
             System.out.println("Error" + e);

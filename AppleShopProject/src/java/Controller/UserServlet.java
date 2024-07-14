@@ -207,8 +207,8 @@ public class UserServlet extends HttpServlet {
         user.setLastName(fname);
         user.setFirstName(lname);
         user.setZipcode(zipcode);
-        boolean status = UserDao.updateUsers(user);
-        if (status) {
+        int status = UserDao.updateUsers(user);
+        if (status >0) {
             request.setAttribute("bodyPage", "user/UserCategory.jsp");
             ArrayList<Users> list = UserDao.getAllUsers();
             request.getSession().setAttribute("list", list);

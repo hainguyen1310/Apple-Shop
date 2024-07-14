@@ -5,6 +5,7 @@ import Connection.DBConnection;
 import Model.News;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ public class NewsDao {
         ArrayList<News> list = new ArrayList<News>();
         try {
             Connection con = DBConnection.getConnection();
-            CallableStatement cstmt = con.prepareCall("{call usp_News_getAll()}");
+            PreparedStatement cstmt = con.prepareStatement("select * from News");
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
                 list.add(new News(rs.getInt("NewsID"), rs.getString("Title"), rs.getString("Description")
@@ -32,7 +33,7 @@ public class NewsDao {
         int status = 0;
         try {
             Connection con = DBConnection.getConnection();
-            CallableStatement cstmt = con.prepareCall("{call usp_News_addNews(?,?,?,?,?)}");
+            PreparedStatement cstmt = con.prepareStatement("INSERT INTO News (Title,Description,MetaContent,Status,ImageURL) VALUES (?,?,?,?,?)");
             cstmt.setString(1, news.getTitle());
             cstmt.setString(2, news.getDescription());
             cstmt.setString(3, news.getMetaContent());
@@ -52,15 +53,14 @@ public class NewsDao {
         int status = 0;
         try {
             Connection con = DBConnection.getConnection();
-            CallableStatement cstmt = con.prepareCall("{call usp_News_updateNews(?,?,?,?,?,?,?)}");
-            cstmt.setInt(1, news.getNewsID());
-            cstmt.setString(2, news.getTitle());
-            cstmt.setString(3, news.getDescription());
-            cstmt.setString(4, news.getMetaContent());
-            cstmt.setBoolean(5, news.isStatus());
-            cstmt.setString(6, news.getImageURL());
-            cstmt.setString(7, news.getDateUpdate());
-            ResultSet rs = cstmt.executeQuery();
+            PreparedStatement cstmt = con.prepareStatement("update News set Title = ?, Description = ?,MetaContent=?,Status=?,ImageURL=?,DateUpdate=? where NewsID=?");
+            cstmt.setInt(7, news.getNewsID());
+            cstmt.setString(1, news.getTitle());
+            cstmt.setString(2, news.getDescription());
+            cstmt.setString(3, news.getMetaContent());
+            cstmt.setBoolean(4, news.isStatus());
+            cstmt.setString(5, news.getImageURL());
+            cstmt.setString(6, news.getDateUpdate());
             status = cstmt.executeUpdate();
             cstmt.close();
             con.close();
@@ -74,7 +74,7 @@ public class NewsDao {
         int status = 0;
         try {
             Connection con = DBConnection.getConnection();
-            CallableStatement cstmt = con.prepareCall("{call usp_News_deleteNews(?)}");
+            CallableStatement cstmt = con.prepareCall("delete from News where NewsID=?");
             cstmt.setInt(1, NewsID);
             ResultSet rs = cstmt.executeQuery();
             status = cstmt.executeUpdate();
@@ -90,7 +90,7 @@ public class NewsDao {
         News news = new News();
         try {
             Connection con = DBConnection.getConnection();
-            CallableStatement cstmt = con.prepareCall("{call usp_News_getByNewsID(?)}");
+            CallableStatement cstmt = con.prepareCall("select * from News where NewsID = ?");
             cstmt.setInt(1, NewsID);
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {

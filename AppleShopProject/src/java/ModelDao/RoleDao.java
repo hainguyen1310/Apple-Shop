@@ -4,6 +4,7 @@ import Connection.DBConnection;
 import Model.Role;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -13,12 +14,12 @@ public class RoleDao {
         ArrayList<Role> list = new ArrayList<Role>();
         try {
             Connection con = DBConnection.getConnection();
-            CallableStatement cstmt = con.prepareCall("{call usp_Role_getAll()}");
-            ResultSet rs = cstmt.executeQuery();
+            PreparedStatement ps = con.prepareStatement("select * from Role");
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new Role(rs.getInt("RoleID"), rs.getString("RoleName")));
             }
-            cstmt.close();
+            ps.close();
             con.close();
         } catch (Exception e) {
             System.out.println("Error" + e);
@@ -30,11 +31,11 @@ public class RoleDao {
         int status = 0;
         try {
             Connection con = DBConnection.getConnection();
-            CallableStatement cstmt = con.prepareCall("{call usp_Role_addRole(?)}");
-            cstmt.setString(1, role.getRoleName());
-            ResultSet rs = cstmt.executeQuery();
-            status = cstmt.executeUpdate();
-            cstmt.close();
+            PreparedStatement ps = con.prepareStatement("INSERT INTO Role (RoleName) VALUES (?)");
+            ps.setString(1, role.getRoleName());
+            ResultSet rs = ps.executeQuery();
+            status = ps.executeUpdate();
+            ps.close();
             con.close();
         } catch (Exception e) {
             System.out.println("Error" + e);
@@ -46,7 +47,7 @@ public class RoleDao {
         int status = 0;
         try {
             Connection con = DBConnection.getConnection();
-            CallableStatement cstmt = con.prepareCall("{call usp_Role_updateRole(?,?)}");
+            PreparedStatement cstmt = con.prepareStatement("update Role set RoleName=? where RoleID=?");
             cstmt.setString(1, role.getRoleName());
             cstmt.setInt(2, role.getRoleID());
             ResultSet rs = cstmt.executeQuery();
@@ -63,7 +64,7 @@ public class RoleDao {
         int status = 0;
         try {
             Connection con = DBConnection.getConnection();
-            CallableStatement cstmt = con.prepareCall("{call usp_Role_deleteRole(?)}");
+            PreparedStatement cstmt = con.prepareStatement("delete from Role where RoleID=?");
             cstmt.setInt(1, roleID);
             ResultSet rs = cstmt.executeQuery();
             status = cstmt.executeUpdate();
@@ -79,7 +80,7 @@ public class RoleDao {
         Role role = new Role();
         try {
             Connection con = DBConnection.getConnection();
-            CallableStatement cstmt = con.prepareCall("{call usp_Role_getByRoleID(?)}");
+            PreparedStatement cstmt = con.prepareStatement("SELECT * FROM Role WHERE RoleID = ?");
             cstmt.setInt(1, roleID);
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
