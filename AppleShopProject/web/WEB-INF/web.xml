@@ -16,7 +16,7 @@
     </servlet>
      <servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
-        <url-pattern>/UserServlet</url-pattern>
+        <url-pattern>/admin/UserServlet</url-pattern>
     </servlet-mapping>
         <servlet>
         <servlet-name>DispatcherServlet</servlet-name>
@@ -24,7 +24,7 @@
     </servlet>
         <servlet-mapping>
         <servlet-name>DispatcherServlet</servlet-name>
-        <url-pattern>/DispatcherServlet</url-pattern>
+        <url-pattern>/admin/DispatcherServlet</url-pattern>
     </servlet-mapping>
     <dependency>
         <groupId>jakarta.servlet.jsp.jstl</groupId>

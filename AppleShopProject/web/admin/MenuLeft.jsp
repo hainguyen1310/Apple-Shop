@@ -27,7 +27,7 @@
                                 <ul class="sub">
                                     <li><a href="#"><i class="fa fa-folder-o"></i>Product Category</a></li>
                                     <li><a href="#"><i class="fa fa-folder-o"></i>News Category</a></li>
-                                    <li><a href="DispatcherServlet?page=UserCategory.jsp"><i class="fa fa-folder-o"></i>User Category</a></li>
+                                    <li><a href="UserServlet?page=UserCategory.jsp"><i class="fa fa-folder-o"></i>User Category</a></li>
                                 </ul>
                             </li>
                             <li class="sub-menu">

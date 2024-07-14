@@ -70,7 +70,7 @@ public class UserServlet extends HttpServlet {
             UserDao.deleteUsers(id);
             page = "UserCategory.jsp";
         }
-        request.setAttribute("bodyPage", page);
+        request.setAttribute("bodyPage", "user/" + page);
         ArrayList<Users> list = UserDao.getAllUsers();
         request.getSession().setAttribute("list", list);
         RequestDispatcher rd = request.getRequestDispatcher("AdminPage.jsp");
