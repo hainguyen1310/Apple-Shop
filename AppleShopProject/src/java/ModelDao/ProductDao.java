@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.sql.*;
 
 public class ProductDao {
-    public static ArrayList<Product> getAllProduct() throws SQLException {
+    public static ArrayList<Product> getAllProduct(){
         Statement stmt = null;
         ResultSet rs = null;
         ArrayList<Product> list = new ArrayList<Product>();
@@ -25,9 +25,6 @@ public class ProductDao {
             con.close();
         } catch (Exception e) {
             System.out.println("Error" + e);
-        }finally {
-            stmt.close();
-            rs.close();
         }
         return list;
     }
@@ -46,7 +43,6 @@ public class ProductDao {
             cstmt.setString(6, product.getImageURL());
             cstmt.setString(7, product.getDescription());
             cstmt.setString(8, product.getMetaContent());
-            ResultSet rs = cstmt.executeQuery();
             status = cstmt.executeUpdate();
             cstmt.close();
             con.close();
@@ -73,7 +69,6 @@ public class ProductDao {
             cstmt.setString(7, product.getImageURL());
             cstmt.setString(8, product.getDescription());
             cstmt.setString(9, product.getMetaContent());
-            ResultSet rs = cstmt.executeQuery();
             status = cstmt.executeUpdate();
             cstmt.close();
             con.close();
@@ -89,7 +84,6 @@ public class ProductDao {
             Connection con = DBConnection.getConnection();
             PreparedStatement cstmt = con.prepareCall("Delete from Product where ProductID=?");
             cstmt.setInt(1, ProductID);
-            ResultSet rs = cstmt.executeQuery();
             status = cstmt.executeUpdate();
             cstmt.close();
             con.close();

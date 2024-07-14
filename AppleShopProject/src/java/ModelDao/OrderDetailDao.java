@@ -2,17 +2,15 @@ package ModelDao;
 
 import Connection.DBConnection;
 import Model.OrderDetail;
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 public class OrderDetailDao {
 
-    public static ArrayList<OrderDetail> getAllOrderDetail() throws SQLException {
+    public static ArrayList<OrderDetail> getAllOrderDetail(){
         Statement stmt = null;
         ResultSet rs = null;
         ArrayList<OrderDetail> list = new ArrayList<OrderDetail>();
@@ -27,9 +25,6 @@ public class OrderDetailDao {
             con.close();
         } catch (Exception e) {
             System.out.println("Error" + e);
-        } finally {
-            stmt.close();
-            rs.close();
         }
         return list;
     }
@@ -44,7 +39,6 @@ public class OrderDetailDao {
             cstmt.setInt(2, orderdetail.getProductID());
             cstmt.setInt(3, orderdetail.getStock());
             cstmt.setFloat(4, orderdetail.getPriceOrder());
-            ResultSet rs = cstmt.executeQuery();
             status = cstmt.executeUpdate();
             cstmt.close();
             con.close();
@@ -64,7 +58,6 @@ public class OrderDetailDao {
             cstmt.setInt(4, orderdetail.getProductID());
             cstmt.setInt(1, orderdetail.getStock());
             cstmt.setFloat(2, orderdetail.getPriceOrder());
-            ResultSet rs = cstmt.executeQuery();
             status = cstmt.executeUpdate();
             cstmt.close();
             con.close();
@@ -81,7 +74,6 @@ public class OrderDetailDao {
             PreparedStatement cstmt = con.prepareCall("delete from OrderDetail where OrderID = ? and ProductID = ?");
             cstmt.setInt(1, OrderID);
             cstmt.setInt(2, ProductID);
-            ResultSet rs = cstmt.executeQuery();
             status = cstmt.executeUpdate();
             cstmt.close();
             con.close();

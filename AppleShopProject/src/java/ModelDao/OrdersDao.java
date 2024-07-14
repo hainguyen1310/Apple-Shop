@@ -3,33 +3,26 @@ package ModelDao;
 
 import Connection.DBConnection;
 import Model.Orders;
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 public class OrdersDao {
-    public static ArrayList<Orders> getAllOrders() throws SQLException {
-        Statement stmt = null;
-        ResultSet rs = null;
+    public static ArrayList<Orders> getAllOrders() {
         ArrayList<Orders> list = new ArrayList<Orders>();
         try {
             Connection con = DBConnection.getConnection();
-            stmt = con.createStatement();
-            rs = stmt.executeQuery("Select * from Orders");
+            PreparedStatement ps = con.prepareStatement("Select * from Orders");
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new Orders(rs.getInt("OrdersID"),rs.getInt("UserOrder"),rs.getString("DateOrder"),
                         rs.getString("Status")));
             }
+            ps.close();
             con.close();
         } catch (Exception e) {
             System.out.println("Error" + e);
-        }finally {
-            stmt.close();
-            rs.close();
         }
         return list;
     }
@@ -41,7 +34,6 @@ public class OrdersDao {
             PreparedStatement cstmt = con.prepareCall("insert into Orders(UserOrder,Status) values(?,?)");
             cstmt.setInt(1, order.getUserOrder());
             cstmt.setString(2, order.getStatus());
-            ResultSet rs = cstmt.executeQuery();
             status = cstmt.executeUpdate();
             cstmt.close();
             con.close();
@@ -60,7 +52,6 @@ public class OrdersDao {
             cstmt.setInt(1, order.getUserOrder());
             cstmt.setString(2, order.getStatus());
             cstmt.setString(3,order.getDateOrder());
-            ResultSet rs = cstmt.executeQuery();
             status = cstmt.executeUpdate();
             cstmt.close();
             con.close();
@@ -76,7 +67,6 @@ public class OrdersDao {
             Connection con = DBConnection.getConnection();
             PreparedStatement cstmt = con.prepareCall("delete from Orders where OrderID = ?");
             cstmt.setInt(1, OrdersID);
-            ResultSet rs = cstmt.executeQuery();
             status = cstmt.executeUpdate();
             cstmt.close();
             con.close();
