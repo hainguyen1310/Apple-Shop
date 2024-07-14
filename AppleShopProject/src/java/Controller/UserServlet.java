@@ -191,8 +191,8 @@ public class UserServlet extends HttpServlet {
         String uemail = request.getParameter("email");
         int urole = Integer.parseInt(request.getParameter("role"));
         String tel = request.getParameter("tel");
-        String fname = request.getParameter("fname");
-        String lname = request.getParameter("lname");
+        String fname = request.getParameter("firstn");
+        String lname = request.getParameter("lastn");
         String address = request.getParameter("address");
         String zipcode = request.getParameter("zipcode");
 
