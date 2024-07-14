@@ -5,12 +5,11 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="Model.User"%>
+<%@page import="Model.Users"%>
 <%@page import="ModelDao.UserDao"%>
 <jsp:useBean id="list" class="java.util.ArrayList" scope="session"/>
-<jsp:useBean id="user" class="Model.User" scope="session"/>
+<jsp:useBean id="user" class="Model.Users" scope="session"/>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%@ taglib uri="/WEB-INF/tlds/CustomTags.tld" prefix="my" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -86,16 +85,16 @@
 
                                                 <c:forEach var="i" begin="0" end="${list.size()-1}">
                                                     <tr class="">
-                                                        <td class="center"><c:out value="${list.get(i).getUserId()}"/></td>
+                                                        <td class="center"><c:out value="${list.get(i).getUserID()}"/></td>
                                                         <td class="center"><c:out value="${list.get(i).getUserName()}"/></td>
                                                         <td class="center"><c:out value="${list.get(i).getEmail()}"/></td>
                                                         <td class="center"><c:out value="${list.get(i).getPassword()}"/></td>
-                                                        <td class="center"><c:out value="${list.get(i).getRole()}"/></td>
+                                                        <td class="center"><c:out value="${list.get(i).getRoleID()}"/></td>
                                                         <my:CustomTagsHandler/>
                                                         <% if ("admin".equals(role)) {
                                                         %>
-                                                        <td class="center"><a class="btn btn-danger" href="DispatcherServlet?page=EditUserForm.jsp&id=${list.get(i).getUserId()}"><i class="fa fa-edit"></i></a>&nbsp;
-                                                            <a class="btn btn-danger" href="DispatcherServlet?page=DeleteUser.jsp&id=${list.get(i).getUserId()}"><i class="fa fa-times"></i></a></td>
+                                                        <td class="center"><a class="btn btn-danger" href="DispatcherServlet?page=EditUserForm.jsp&id=${list.get(i).getUserID()}"><i class="fa fa-edit"></i></a>&nbsp;
+                                                            <a class="btn btn-danger" href="DispatcherServlet?page=DeleteUser.jsp&id=${list.get(i).getUserID()}"><i class="fa fa-times"></i></a></td>
                                                             <%
                                                 }%> 
                                                     </tr>

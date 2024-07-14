@@ -11,13 +11,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login Page</title>
-        <link href="admin/assets/bs3/css/bootstrap.min.css" rel="stylesheet">
-        <link href="admin/assets/css/bootstrap-reset.css" rel="stylesheet">
-        <link href="admin/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+        <link href="bs3/css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap-reset.css" rel="stylesheet">
+        <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
 
         <!-- Custom styles for this template -->
-        <link href="admin/assets/css/style.css" rel="stylesheet">
-        <link href="admin/assets/css/style-responsive.css" rel="stylesheet" />
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/style-responsive.css" rel="stylesheet" />
     </head>
     <body>
 
@@ -91,8 +91,8 @@
         <!-- Placed js at the end of the document so the pages load faster -->
 
         <!--Core js-->
-        <script src="admin/assets/js/jquery.js"></script>
-        <script src="admin/assets/bs3/js/bootstrap.min.js"></script>
+        <script src="js/jquery.js"></script>
+        <script src="bs3/js/bootstrap.min.js"></script>
         <script>
             // Kiểm tra xem phần tử thông báo có tồn tại không
             window.onload = function () {

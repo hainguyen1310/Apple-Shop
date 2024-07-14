@@ -60,7 +60,21 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String page = request.getParameter("page");
+        if (page.equals("EditUserForm.jsp")) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            Users existingUser = UserDao.getUsersbyID(id);
+            request.getSession().setAttribute("user", existingUser);
+        } else if (page.equals("DeleteUser.jsp")) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            UserDao.deleteUsers(id);
+            page = "UserCategory.jsp";
+        }
+        request.setAttribute("bodyPage", page);
+        ArrayList<Users> list = UserDao.getAllUsers();
+        request.getSession().setAttribute("list", list);
+        RequestDispatcher rd = request.getRequestDispatcher("AdminPage.jsp");
+        rd.forward(request, response);
     }
 
     @Override
@@ -107,7 +121,8 @@ public class UserServlet extends HttpServlet {
             session.setAttribute("pass", user.getPassword());
             session.setAttribute("role", user.getRoleID());
             session.setAttribute("username", uname);
-            RequestDispatcher rd = request.getRequestDispatcher("/admin/html/AdminPage.jsp");
+            request.setAttribute("bodyPage", "BodyPage.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("AdminPage.jsp");
             rd.forward(request, response);
         } else {
             session.setAttribute("login_msg", "Sorry, Username or Password is incorrect");
@@ -176,7 +191,6 @@ public class UserServlet extends HttpServlet {
 //            rd.forward(request, response);
 //        }
 //    }
-
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
         Users existingUser = UserDao.getUsersbyID(id);
