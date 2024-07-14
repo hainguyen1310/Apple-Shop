@@ -1,1 +1,0 @@
-"use strict";window.idms.app_config.bootData.fragmentLoad();
