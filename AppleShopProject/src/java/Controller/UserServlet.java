@@ -67,7 +67,7 @@ public class UserServlet extends HttpServlet {
             request.getSession().setAttribute("user", existingUser);
         } else if (page.equals("DeleteUser.jsp")) {
             int id = Integer.parseInt(request.getParameter("id"));
-            UserDao.deleteUsers(id);
+            UserDao.delete(id);
             page = "UserCategory.jsp";
         }
         request.setAttribute("bodyPage", "user/" + page);
@@ -97,7 +97,7 @@ public class UserServlet extends HttpServlet {
                     showEditForm(request, response);
                     break;
                 case "Update":
-                    //UpdateUser(request, response);
+                    UpdateUser(request, response);
                     break;
 //                default:
 //                    listStudent(request, response);
@@ -158,15 +158,25 @@ public class UserServlet extends HttpServlet {
         String uname = request.getParameter("username");
         String upass = request.getParameter("password");
         String uemail = request.getParameter("email");
+        String utel = request.getParameter("tel");
+        String ufname = request.getParameter("firstn");
+        String ulname = request.getParameter("lastn");
+        String uaddress = request.getParameter("address");
+        String uzip = request.getParameter("zipcode");
 
         Users user = new Users();
         user.setUserName(uname);
         user.setPassword(upass);
         user.setEmail(uemail);
-        user.setRoleID(1);
+        user.setRoleID(2);
+        user.setAddress(uaddress);
+        user.setTel(utel);
+        user.setLastName(ulname);
+        user.setFirstName(ufname);
+        user.setZipcode(uzip);
         int status = UserDao.addUser(user);
         if (status > 0) {
-            request.setAttribute("bodyPage", "UserCategory.jsp");
+            request.setAttribute("bodyPage", "user/UserCategory.jsp");
             ArrayList<Users> list = UserDao.getAllUsers();
             request.getSession().setAttribute("list", list);
             RequestDispatcher rd = request.getRequestDispatcher("AdminPage.jsp");
@@ -174,23 +184,38 @@ public class UserServlet extends HttpServlet {
         }
     }
 
-//    private void UpdateUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-//        int id = Integer.parseInt(request.getParameter("id"));
-//        String uname = request.getParameter("username");
-//        String upass = request.getParameter("password");
-//        String uemail = request.getParameter("email");
-//        int urole = Integer.parseInt(request.getParameter("role"));
-//
-//        Users user = new Users(id,uname,upass,uemail,urole);
-//        int status = UserDao.updateUsers(user);
-//        if (status != 0) {
-//            request.setAttribute("bodyPage", "UserCategory.jsp");
-//            ArrayList<Users> list = UserDao.getAllUsers();
-//            request.getSession().setAttribute("list", list);
-//            RequestDispatcher rd = request.getRequestDispatcher("AdminPage.jsp");
-//            rd.forward(request, response);
-//        }
-//    }
+    private void UpdateUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String uname = request.getParameter("username");
+        String upass = request.getParameter("password");
+        String uemail = request.getParameter("email");
+        int urole = Integer.parseInt(request.getParameter("role"));
+        String tel = request.getParameter("tel");
+        String fname = request.getParameter("fname");
+        String lname = request.getParameter("lname");
+        String address = request.getParameter("address");
+        String zipcode = request.getParameter("zipcode");
+
+        Users user = new Users();
+        user.setUserID(id);
+        user.setUserName(uname);
+        user.setPassword(upass);
+        user.setEmail(uemail);
+        user.setRoleID(urole);
+        user.setAddress(address);
+        user.setTel(tel);
+        user.setLastName(fname);
+        user.setFirstName(lname);
+        user.setZipcode(zipcode);
+        boolean status = UserDao.updateUsers(user);
+        if (status) {
+            request.setAttribute("bodyPage", "user/UserCategory.jsp");
+            ArrayList<Users> list = UserDao.getAllUsers();
+            request.getSession().setAttribute("list", list);
+            RequestDispatcher rd = request.getRequestDispatcher("AdminPage.jsp");
+            rd.forward(request, response);
+        }
+    }
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
         Users existingUser = UserDao.getUsersbyID(id);

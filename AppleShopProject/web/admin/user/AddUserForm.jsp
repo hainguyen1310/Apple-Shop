@@ -31,27 +31,62 @@
                                             <label for="UserName" class="col-lg-2 col-sm-2 control-label"></label>
                                             <div class="col-lg-6">
                                                 <p>Enter Username</p>
-                                                <input type="text" id="UserName" name="username" class="form-control" />
+                                                <input type="text" id="UserName" name="username" class="form-control" required/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="Password" class="col-lg-2 col-sm-2 control-label"></label>
                                             <div class="col-lg-6">
                                                 <p>Enter Password</p>
-                                                <input type="password" id="Password" name="password" class="form-control" />
+                                                <input type="password" id="Password" name="password" class="form-control" required/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="Email" class="col-lg-2 col-sm-2 control-label"></label>
                                             <div class="col-lg-6">
                                                 <p>Enter Email</p>
-                                                <input type="text" id="Email" name="email" class="form-control" />
+                                                <input type="text" id="Email" name="email" class="form-control" required/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Tel" class="col-lg-2 col-sm-2 control-label"></label>
+                                            <div class="col-lg-6">
+                                                <p>Enter Tel</p>
+                                                <input type="text" id="Tel" name="tel" class="form-control" required/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="fn" class="col-lg-2 col-sm-2 control-label"></label>
+                                            <div class="col-lg-6">
+                                                <p>Enter First Name</p>
+                                                <input type="text" id="fn" name="firstn" class="form-control" required/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ln" class="col-lg-2 col-sm-2 control-label"></label>
+                                            <div class="col-lg-6">
+                                                <p>Enter Last Name</p>
+                                                <input type="text" id="ln" name="lastn" class="form-control" required/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="add" class="col-lg-2 col-sm-2 control-label"></label>
+                                            <div class="col-lg-6">
+                                                <p>Enter Address</p>
+                                                <input type="text" id="add" name="address" class="form-control" required/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="zip" class="col-lg-2 col-sm-2 control-label"></label>
+                                            <div class="col-lg-6">
+                                                <p>Enter Zipcode</p>
+                                                <input type="text" id="zip" name="zipcode" class="form-control" required/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-lg-2 col-sm-2 control-label">&nbsp;</label>
                                             <div class="col-lg-6">
-                                                <a href="DispatcherServlet?page=UserCategory.jsp" class="btn btn-primary">Quay trở lại</a> &nbsp;
+                                                <a href="UserServlet?page=UserCategory.jsp" class="btn btn-primary">Quay trở lại</a> &nbsp;
                                                 <input type="submit" value="Add New" name="submit" class="btn btn-danger" autofocus/>
                                             </div>
                                         </div>

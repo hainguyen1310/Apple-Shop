@@ -141,5 +141,7 @@ public class Users {
         this.zipcode = zipcode;
     }
     
-    
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
+    }
 }
