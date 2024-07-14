@@ -10,13 +10,11 @@ import java.sql.*;
 
 public class ProductDao {
     public static ArrayList<Product> getAllProduct(){
-        Statement stmt = null;
-        ResultSet rs = null;
         ArrayList<Product> list = new ArrayList<Product>();
         try {
             Connection con = DBConnection.getConnection();
-            stmt = con.createStatement();
-            rs = stmt.executeQuery("Select * from Product");
+            PreparedStatement ps = con.prepareStatement("Select * from Product");
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new Product(rs.getInt("ProductID"), rs.getString("ProductName"), rs.getInt("CategoryID"),
                 rs.getFloat("Price"), rs.getInt("Stock"), rs.getString("DateUpdate"), rs.getBoolean("Status"),
@@ -33,7 +31,7 @@ public class ProductDao {
         int status = 0;
         try {
             Connection con = DBConnection.getConnection();
-            PreparedStatement cstmt = con.prepareCall("Insert into Product(ProductName,CategoryID,Price,Stock,Status,ImageURL,Description,MetaContent)"
+            PreparedStatement cstmt = con.prepareStatement("Insert into Product(ProductName,CategoryID,Price,Stock,Status,ImageURL,Description,MetaContent)"
                     + " values (?,?,?,?,?,?,?,?)");
             cstmt.setString(1, product.getProductName());
             cstmt.setInt(2, product.getCategoryID());
@@ -56,19 +54,18 @@ public class ProductDao {
         int status = 0;
         try {
             Connection con = DBConnection.getConnection();
-            PreparedStatement cstmt = con.prepareCall("update Product set ProductName = ?, CategoryID = ?, "
-                    + "Price = ?, Stock = ?, DateUpdate = ?, Status = ?, ImageURL = ?, "
+            PreparedStatement cstmt = con.prepareStatement("update Product set ProductName = ?, CategoryID = ?, "
+                    + "Price = ?, Stock = ?, Status = ?, ImageURL = ?, "
                     + "Description = ?, MetaContent = ? where ProductID = ?");
-            cstmt.setInt(10, product.getProductID());
             cstmt.setString(1, product.getProductName());
             cstmt.setInt(2, product.getCategoryID());
             cstmt.setFloat(3, product.getMoney());
             cstmt.setInt(4, product.getStock());
-            cstmt.setString(5, product.getDateUpdate());
-            cstmt.setBoolean(6, product.isStatus());
-            cstmt.setString(7, product.getImageURL());
-            cstmt.setString(8, product.getDescription());
-            cstmt.setString(9, product.getMetaContent());
+            cstmt.setBoolean(5, product.isStatus());
+            cstmt.setString(6, product.getImageURL());
+            cstmt.setString(7, product.getDescription());
+            cstmt.setString(8, product.getMetaContent());
+            cstmt.setInt(9, product.getProductID());
             status = cstmt.executeUpdate();
             cstmt.close();
             con.close();
@@ -82,7 +79,7 @@ public class ProductDao {
         int status = 0;
         try {
             Connection con = DBConnection.getConnection();
-            PreparedStatement cstmt = con.prepareCall("Delete from Product where ProductID=?");
+            PreparedStatement cstmt = con.prepareStatement("Delete from Product where ProductID=?");
             cstmt.setInt(1, ProductID);
             status = cstmt.executeUpdate();
             cstmt.close();
@@ -97,7 +94,7 @@ public class ProductDao {
         Product product = new Product();
         try {
             Connection con = DBConnection.getConnection();
-            PreparedStatement cstmt = con.prepareCall("Select* from Product where ProductID=?");
+            PreparedStatement cstmt = con.prepareStatement("Select* from Product where ProductID=?");
             cstmt.setInt(1, ProductID);
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {
