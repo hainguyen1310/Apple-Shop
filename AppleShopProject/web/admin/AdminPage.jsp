@@ -21,18 +21,6 @@
         <link href="assets/css/style-responsive.css" rel="stylesheet"/>
     </head>
     <body>
-        <%
-        String username = null;
-
-        if (session != null) {
-            username = (String) session.getAttribute("username");
-        }
-        
-        if (username == null) {
-            response.sendRedirect("LoginPage.jsp");
-            return;
-        }
-        %>
         <section id="container">
             <jsp:include page="Header.jsp" /> 
             <jsp:include page="MenuLeft.jsp" /> 

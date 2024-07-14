@@ -28,7 +28,7 @@ public class News {
         this.title = title;
         this.description = description;
         this.metaContent = metaContent;
-        this.dateUpdate = LocalDate.parse(dateUpdate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));;
+        this.dateUpdate = LocalDate.parse(dateUpdate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         this.status = status;
         this.imageURL = imageURL;
     }
@@ -69,8 +69,8 @@ public class News {
         return DateTimeFormatter.ofPattern("yyyy-MM-dd").format(dateUpdate);
     }
 
-    public void setDateUpdate(LocalDate dateUpdate) {
-        this.dateUpdate = dateUpdate;
+    public void setDateUpdate(String dateUpdate) {
+        this.dateUpdate = LocalDate.parse(dateUpdate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     public boolean isStatus() {

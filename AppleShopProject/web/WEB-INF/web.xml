@@ -16,6 +16,10 @@
         <servlet-name>BagsServlet</servlet-name>
         <servlet-class>Controller.BagsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NewsServlet</servlet-name>
+        <servlet-class>Controller.NewsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RoleServlet</servlet-name>
         <url-pattern>/admin/RoleServlet</url-pattern>
@@ -33,8 +37,12 @@
         <url-pattern>/admin/OrderDetailServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Bags</servlet-name>
+        <servlet-name>BagsServlet</servlet-name>
         <url-pattern>/admin/BagsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewsServlet</servlet-name>
+        <url-pattern>/admin/NewsServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>

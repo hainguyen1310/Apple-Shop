@@ -26,9 +26,9 @@
                                 </a>
                                 <ul class="sub">
                                     <li><a href="#"><i class="fa fa-folder-o"></i>Category</a></li>
-                                    <li><a href="#"><i class="fa fa-folder-o"></i>News</a></li>
+                                    <li><a href="NewsServlet?page=Index.jsp"><i class="fa fa-folder-o"></i>News</a></li>
                                     <li><a href="UserServlet?page=UserCategory.jsp"><i class="fa fa-folder-o"></i>User</a></li>
-                                    <li><a href="RoleServlet?page=UserCategory.jsp"><i class="fa fa-folder-o"></i>Role</a></li>
+                                    <li><a href="RoleServlet?page=Index.jsp"><i class="fa fa-folder-o"></i>Role</a></li>
                                     <li><a href="ProductServlet?page=Index.jsp"><i class="fa fa-folder-o"></i>Product</a></li>
                                     <li><a href="OrdersServlet?page=Index.jsp"><i class="fa fa-folder-o"></i>Orders</a></li>
                                     <li><a href="OrderDetailServlet?page=Index.jsp"><i class="fa fa-folder-o"></i>OrderDetail</a></li>

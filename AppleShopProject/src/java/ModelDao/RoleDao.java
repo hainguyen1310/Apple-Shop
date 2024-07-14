@@ -33,7 +33,6 @@ public class RoleDao {
             Connection con = DBConnection.getConnection();
             PreparedStatement ps = con.prepareStatement("INSERT INTO Role (RoleName) VALUES (?)");
             ps.setString(1, role.getRoleName());
-            ResultSet rs = ps.executeQuery();
             status = ps.executeUpdate();
             ps.close();
             con.close();
@@ -50,7 +49,6 @@ public class RoleDao {
             PreparedStatement cstmt = con.prepareStatement("update Role set RoleName=? where RoleID=?");
             cstmt.setString(1, role.getRoleName());
             cstmt.setInt(2, role.getRoleID());
-            ResultSet rs = cstmt.executeQuery();
             status = cstmt.executeUpdate();
             cstmt.close();
             con.close();

@@ -5,10 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="Model.Role"%>
-<%@page import="ModelDao.RoleDao"%>
+<%@page import="Model.News"%>
+<%@page import="ModelDao.NewsDao"%>
 <jsp:useBean id="list" class="java.util.ArrayList" scope="session"/>
-<jsp:useBean id="user" class="Model.Users" scope="session"/>
+<jsp:useBean id="news" class="Model.News" scope="session"/>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +51,7 @@
                                 <div class="adv-table editable-table ">
                                     <div class="clearfix">
                                         <div class="btn-group">
-                                            <a href="RoleServlet?page=Create.jsp" id="editable-sample_new" class="btn btn-primary">
+                                            <a href="NewsServlet?page=Create.jsp" id="editable-sample_new" class="btn btn-primary">
                                                 Add New <i class="fa fa-plus"></i>
                                             </a>
                                         </div>
@@ -62,8 +62,13 @@
                                         <table class="table table-striped table-hover table-bordered" id="editable-sample">
                                             <thead>
                                                 <tr>
-                                                    <th>RoleID</th>
-                                                    <th>Role Name</th>
+                                                    <th>NewsID</th>
+                                                    <th>Title</th>
+                                                    <th>Description</th>
+                                                    <th>MetaContent</th>
+                                                    <th>DateUpdate</th>
+                                                    <th>Status</th>
+                                                    <th>ImageURL</th>
                                                     <th>Action<th>
                                                 </tr>
                                             </thead>
@@ -71,11 +76,15 @@
 
                                                 <c:forEach var="i" begin="0" end="${list.size()-1}">
                                                     <tr class="">
-                                                        <td class="center"><c:out value="${list.get(i).getRoleID()}"/></td>
-                                                        <td class="center"><c:out value="${list.get(i).getRoleName()}"/></td>
-                                                        <td class="center"><a class="btn btn-danger" href="RoleServlet?page=Edit.jsp&id=${list.get(i).getRoleID()}"><i class="fa fa-edit"></i></a>&nbsp;
-                                                            <a class="btn btn-danger" href="RoleServlet?page=Delete.jsp&id=${list.get(i).getRoleID()}"><i class="fa fa-times"></i></a></td>
-                                                   
+                                                        <td class="center"><c:out value="${list.get(i).getNewsID()}"/></td>
+                                                        <td class="center"><c:out value="${list.get(i).getTitle()}"/></td>
+                                                        <td class="center"><c:out value="${list.get(i).getDescription()}"/></td>
+                                                        <td class="center"><c:out value="${list.get(i).getMetaContent()}"/></td>
+                                                        <td class="center"><c:out value="${list.get(i).getDateUpdate()}"/></td>
+                                                        <td class="center"><c:out value="${list.get(i).isStatus()}"/></td>
+                                                        <td class="center"><c:out value="${list.get(i).getImageURL()}"/></td>
+                                                        <td class="center"><a class="btn btn-danger" href="NewsServlet?page=Edit.jsp&id=${list.get(i).getNewsID()}"><i class="fa fa-edit"></i></a>&nbsp;
+                                                            <a class="btn btn-danger" href="NewsServlet?page=Delete.jsp&id=${list.get(i).getNewsID()}"><i class="fa fa-times"></i></a></td>
                                                     </tr>
                                                 </c:forEach>
                                             </tbody>

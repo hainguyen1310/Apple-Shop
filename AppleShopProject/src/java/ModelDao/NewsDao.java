@@ -39,7 +39,6 @@ public class NewsDao {
             cstmt.setString(3, news.getMetaContent());
             cstmt.setBoolean(4, news.isStatus());
             cstmt.setString(5, news.getImageURL());
-            ResultSet rs = cstmt.executeQuery();
             status = cstmt.executeUpdate();
             cstmt.close();
             con.close();
@@ -53,14 +52,13 @@ public class NewsDao {
         int status = 0;
         try {
             Connection con = DBConnection.getConnection();
-            PreparedStatement cstmt = con.prepareStatement("update News set Title = ?, Description = ?,MetaContent=?,Status=?,ImageURL=?,DateUpdate=? where NewsID=?");
-            cstmt.setInt(7, news.getNewsID());
+            PreparedStatement cstmt = con.prepareStatement("update News set Title = ?, Description = ?,MetaContent=?,Status=?,ImageURL=? where NewsID=?");
             cstmt.setString(1, news.getTitle());
             cstmt.setString(2, news.getDescription());
             cstmt.setString(3, news.getMetaContent());
             cstmt.setBoolean(4, news.isStatus());
             cstmt.setString(5, news.getImageURL());
-            cstmt.setString(6, news.getDateUpdate());
+            cstmt.setInt(6, news.getNewsID());
             status = cstmt.executeUpdate();
             cstmt.close();
             con.close();
@@ -76,7 +74,6 @@ public class NewsDao {
             Connection con = DBConnection.getConnection();
             CallableStatement cstmt = con.prepareCall("delete from News where NewsID=?");
             cstmt.setInt(1, NewsID);
-            ResultSet rs = cstmt.executeQuery();
             status = cstmt.executeUpdate();
             cstmt.close();
             con.close();

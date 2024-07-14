@@ -30,8 +30,8 @@
                                         <div class="form-group">
                                             <label for="UserName" class="col-lg-2 col-sm-2 control-label"></label>
                                             <div class="col-lg-6">
-                                                <p>Enter Username</p>
-                                                <input type="text" id="UserName" name="username" class="form-control" required/>
+                                                <p>Enter RoleName</p>
+                                                <input type="text" id="UserName" name="rolename" class="form-control" required/>
                                             </div>
                                         </div>
                                         <div class="form-group">
