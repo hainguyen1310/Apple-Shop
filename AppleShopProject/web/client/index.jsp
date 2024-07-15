@@ -3266,6 +3266,4 @@
 		<!-- main js -->
         <script src="/client/assets/js/main.js"></script>
     </body>
-
-
 </html>
