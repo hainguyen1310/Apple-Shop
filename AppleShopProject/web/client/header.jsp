@@ -9,6 +9,7 @@
 <%@page import="Model.Bags"%>
 <%@page import="ModelDao.ProductDao"%>
 <jsp:useBean id="listBags" class="java.util.ArrayList" scope="session"/>
+<jsp:useBean id="listCategory" class="java.util.ArrayList" scope="session"/>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <!-- HEADER-TOP START -->
@@ -94,37 +95,14 @@
                 <div class="categorys-product-search">
                     <form action="#" method="get" class="search-form-cat">
                         <div class="search-product form-group">
+                            
                             <select name="catsearch" class="cat-search">
                                 <option value="">Categories</option>
-                                <option value="2">--Women</option>
-                                <option value="3">---T-Shirts</option>
-                                <option value="4">--Men</option>
-                                <option value="5">----Shoose</option>
-                                <option value="6">--Dress</option>
-                                <option value="7">----Tops</option>
-                                <option value="8">---Casual</option>
-                                <option value="9">--Evening</option>
-                                <option value="10">--Summer</option>
-                                <option value="11">---sports</option>
-                                <option value="12">--day</option>
-                                <option value="13">--evening</option>
-                                <option value="14">-----Blouse</option>
-                                <option value="15">--handba</option>
-                                <option value="16">--phone</option>
-                                <option value="17">-house</option>
-                                <option value="18">--Beauty</option>
-                                <option value="19">--health</option>
-                                <option value="20">---clothing</option>
-                                <option value="21">---kids</option>
-                                <option value="22">--Dresse</option>
-                                <option value="22">---Casual</option>
-                                <option value="23">--day</option>
-                                <option value="24">--evening</option>
-                                <option value="24">---Blouse</option>
-                                <option value="25">-handb</option>
-                                <option value="66">--phone</option>
-                                <option value="27">---house</option>									
+                                <c:forEach var="i" begin="0" end="${listCategory.size()-1}">
+                                <option value=""><c:out value="${listCategory.get(i).getCategoryName()}"/></option>
+                                </c:forEach>
                             </select>
+                            
                             <input type="text" class="form-control search-form" name="s" placeholder="Enter your search key . " />
                             <button class="search-button" value="Search" name="s" type="submit">
                                 <i class="fa fa-search"></i>
@@ -194,43 +172,43 @@
                             <li class="active"><a href="index.jsp">Home</a>
                             </li>
                             <li>
-                                <a href="/client/shop-gird.html">clothing</a>
+                                <a href="/client/shop-gird.jsp">clothing</a>
                                 <!-- DRODOWN-MEGA-MENU START -->	
                                 <div class="drodown-mega-menu">
                                     <div class="left-mega col-xs-6">
                                         <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="/client/shop-gird.html">TOPS</a>
+                                            <a class="mega-menu-title" href="/client/shop-gird.jsp">TOPS</a>
                                             <ul>
-                                                <li><a href="/client/shop-gird.html">T-shirts</a></li>
-                                                <li><a href="/client/shop-gird.html">clothing</a></li>
-                                                <li><a href="/client/shop-gird.html">Delivery</a></li>
+                                                <li><a href="/client/shop-gird.jsp">T-shirts</a></li>
+                                                <li><a href="/client/shop-gird.jsp">clothing</a></li>
+                                                <li><a href="/client/shop-gird.jsp">Delivery</a></li>
                                             </ul>
                                         </div>
                                         <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="/client/shop-gird.html">new product</a>
+                                            <a class="mega-menu-title" href="/client/shop-gird.jsp">new product</a>
                                             <ul>
-                                                <li><a href="/client/shop-gird.html">T-shirts</a></li>
-                                                <li><a href="/client/shop-gird.html">clothing</a></li>
-                                                <li><a href="/client/shop-gird.html">Delivery</a></li>
+                                                <li><a href="/client/shop-gird.jsp">T-shirts</a></li>
+                                                <li><a href="/client/shop-gird.jsp">clothing</a></li>
+                                                <li><a href="/client/shop-gird.jsp">Delivery</a></li>
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="right-mega col-xs-6">
                                         <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="/client/shop-gird.html">Prodect</a>
+                                            <a class="mega-menu-title" href="/client/shop-gird.jsp">Prodect</a>
                                             <ul>
-                                                <li><a href="/client/shop-gird.html">T-shirts</a></li>
-                                                <li><a href="/client/shop-gird.html">clothing</a></li>
-                                                <li><a href="/client/shop-gird.html">Watch</a></li>
-                                                <li><a href="/client/shop-gird.html">Delivery</a></li>
+                                                <li><a href="/client/shop-gird.jsp">T-shirts</a></li>
+                                                <li><a href="/client/shop-gird.jsp">clothing</a></li>
+                                                <li><a href="/client/shop-gird.jsp">Watch</a></li>
+                                                <li><a href="/client/shop-gird.jsp">Delivery</a></li>
                                             </ul>
                                         </div>
                                         <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="/client/shop-gird.html">best sale month</a>
+                                            <a class="mega-menu-title" href="/client/shop-gird.jsp">best sale month</a>
                                             <ul>
-                                                <li><a href="/client/shop-gird.html">T-shirts</a></li>
-                                                <li><a href="/client/shop-gird.html">clothing</a></li>
-                                                <li><a href="/client/shop-gird.html">Delivery</a></li>
+                                                <li><a href="/client/shop-gird.jsp">T-shirts</a></li>
+                                                <li><a href="/client/shop-gird.jsp">clothing</a></li>
+                                                <li><a href="/client/shop-gird.jsp">Delivery</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -238,56 +216,56 @@
                                 <!-- DRODOWN-MEGA-MENU END -->										
                             </li>
                             <li>
-                                <a href="/client/shop-gird.html">Tops</a>
+                                <a href="/client/shop-gird.jsp">Tops</a>
                                 <!-- DRODOWN-MEGA-MENU START -->
                                 <div class="drodown-mega-menu">
                                     <div class="left-mega col-xs-4">
                                         <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="/client/shop-gird.html">TOPS</a>
+                                            <a class="mega-menu-title" href="/client/shop-gird.jsp">TOPS</a>
                                             <ul>
-                                                <li><a href="/client/shop-gird.html">T-shirts</a></li>
-                                                <li><a href="/client/shop-gird.html">clothing</a></li>
-                                                <li><a href="/client/shop-gird.html">Delivery</a></li>
+                                                <li><a href="/client/shop-gird.jsp">T-shirts</a></li>
+                                                <li><a href="/client/shop-gird.jsp">clothing</a></li>
+                                                <li><a href="/client/shop-gird.jsp">Delivery</a></li>
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="right-mega col-xs-4">
                                         <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="/client/shop-gird.html">best sale month</a>
+                                            <a class="mega-menu-title" href="/client/shop-gird.jsp">best sale month</a>
                                             <ul>
-                                                <li><a href="/client/shop-gird.html">T-shirts</a></li>
-                                                <li><a href="/client/shop-gird.html">clothing</a></li>
-                                                <li><a href="/client/shop-gird.html">Delivery</a></li>
+                                                <li><a href="/client/shop-gird.jsp">T-shirts</a></li>
+                                                <li><a href="/client/shop-gird.jsp">clothing</a></li>
+                                                <li><a href="/client/shop-gird.jsp">Delivery</a></li>
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="right-mega col-xs-4">
                                         <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="/client/shop-gird.html">top rate product</a>
+                                            <a class="mega-menu-title" href="/client/shop-gird.jsp">top rate product</a>
                                             <ul>
-                                                <li><a href="/client/shop-gird.html">T-shirts</a></li>
-                                                <li><a href="/client/shop-gird.html">clothing</a></li>
-                                                <li><a href="/client/shop-gird.html">Delivery</a></li>
+                                                <li><a href="/client/shop-gird.jsp">T-shirts</a></li>
+                                                <li><a href="/client/shop-gird.jsp">clothing</a></li>
+                                                <li><a href="/client/shop-gird.jsp">Delivery</a></li>
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="left-mega col-xs-6">
                                         <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="/client/shop-gird.html">Latest product</a>
+                                            <a class="mega-menu-title" href="/client/shop-gird.jsp">Latest product</a>
                                             <ul>
-                                                <li><a href="/client/shop-gird.html">T-shirts</a></li>
-                                                <li><a href="/client/shop-gird.html">clothing</a></li>
-                                                <li><a href="/client/shop-gird.html">Delivery</a></li>
+                                                <li><a href="/client/shop-gird.jsp">T-shirts</a></li>
+                                                <li><a href="/client/shop-gird.jsp">clothing</a></li>
+                                                <li><a href="/client/shop-gird.jsp">Delivery</a></li>
                                             </ul>
                                         </div>
                                     </div>	
                                     <div class="left-mega col-xs-6">
                                         <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="/client/shop-gird.html">popular product</a>
+                                            <a class="mega-menu-title" href="/client/shop-gird.jsp">popular product</a>
                                             <ul>
-                                                <li><a href="/client/shop-gird.html">T-shirts</a></li>
-                                                <li><a href="/client/shop-gird.html">clothing</a></li>
-                                                <li><a href="/client/shop-gird.html">Delivery</a></li>
+                                                <li><a href="/client/shop-gird.jsp">T-shirts</a></li>
+                                                <li><a href="/client/shop-gird.jsp">clothing</a></li>
+                                                <li><a href="/client/shop-gird.jsp">Delivery</a></li>
                                             </ul>
                                         </div>
                                     </div>											
@@ -295,43 +273,43 @@
                                 <!-- DRODOWN-MEGA-MENU END -->
                             </li>
                             <li>
-                                <a href="/client/shop-gird.html">T-shirts</a>
+                                <a href="/client/shop-gird.jsp">T-shirts</a>
                                 <!-- DRODOWN-MEGA-MENU START -->
                                 <div class="drodown-mega-menu">
                                     <div class="left-mega col-xs-6">
                                         <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="/client/shop-gird.html">TOPS</a>
+                                            <a class="mega-menu-title" href="/client/shop-gird.jsp">TOPS</a>
                                             <ul>
-                                                <li><a href="/client/shop-gird.html">T-shirts</a></li>
-                                                <li><a href="/client/shop-gird.html">clothing</a></li>
-                                                <li><a href="/client/shop-gird.html">Delivery</a></li>
+                                                <li><a href="/client/shop-gird.jsp">T-shirts</a></li>
+                                                <li><a href="/client/shop-gird.jsp">clothing</a></li>
+                                                <li><a href="/client/shop-gird.jsp">Delivery</a></li>
                                             </ul>
                                         </div>
                                         <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="/client/shop-gird.html">new product</a>
+                                            <a class="mega-menu-title" href="/client/shop-gird.jsp">new product</a>
                                             <ul>
-                                                <li><a href="/client/shop-gird.html">T-shirts</a></li>
-                                                <li><a href="/client/shop-gird.html">clothing</a></li>
-                                                <li><a href="/client/shop-gird.html">Delivery</a></li>
+                                                <li><a href="/client/shop-gird.jsp">T-shirts</a></li>
+                                                <li><a href="/client/shop-gird.jsp">clothing</a></li>
+                                                <li><a href="/client/shop-gird.jsp">Delivery</a></li>
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="right-mega col-xs-6">
                                         <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="/client/shop-gird.html">Prodect</a>
+                                            <a class="mega-menu-title" href="/client/shop-gird.jsp">Prodect</a>
                                             <ul>
-                                                <li><a href="/client/shop-gird.html">T-shirts</a></li>
-                                                <li><a href="/client/shop-gird.html">clothing</a></li>
-                                                <li><a href="/client/shop-gird.html">Watch</a></li>
-                                                <li><a href="/client/shop-gird.html">Delivery</a></li>
+                                                <li><a href="/client/shop-gird.jsp">T-shirts</a></li>
+                                                <li><a href="/client/shop-gird.jsp">clothing</a></li>
+                                                <li><a href="/client/shop-gird.jsp">Watch</a></li>
+                                                <li><a href="/client/shop-gird.jsp">Delivery</a></li>
                                             </ul>
                                         </div>
                                         <div class="mega-menu-list">
-                                            <a class="mega-menu-title" href="/client/shop-gird.html">best sale month</a>
+                                            <a class="mega-menu-title" href="/client/shop-gird.jsp">best sale month</a>
                                             <ul>
-                                                <li><a href="/client/shop-gird.html">T-shirts</a></li>
-                                                <li><a href="/client/shop-gird.html">clothing</a></li>
-                                                <li><a href="/client/shop-gird.html">Delivery</a></li>
+                                                <li><a href="/client/shop-gird.jsp">T-shirts</a></li>
+                                                <li><a href="/client/shop-gird.jsp">clothing</a></li>
+                                                <li><a href="/client/shop-gird.jsp">Delivery</a></li>
                                             </ul>
                                         </div>
                                     </div>
