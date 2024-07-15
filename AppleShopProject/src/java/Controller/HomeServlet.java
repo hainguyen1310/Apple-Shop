@@ -4,12 +4,26 @@
  */
 package Controller;
 
+import Model.Bags;
+import Model.Category;
+import Model.News;
+import Model.OrderDetail;
+import Model.Orders;
+import Model.Product;
+import ModelDao.BagsDao;
+import ModelDao.CategoryDao;
+import ModelDao.NewsDao;
+import ModelDao.OrderDetailDao;
+import ModelDao.OrdersDao;
+import ModelDao.ProductDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import static java.util.Collections.list;
 
 /**
  *
@@ -55,7 +69,20 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        ArrayList<News> listNews = NewsDao.getAllNews();
+        ArrayList<Product> listProduct = ProductDao.getAllProduct();
+        ArrayList<Category> listCategory = CategoryDao.getAllCategory();
+        ArrayList<Bags> listBags = BagsDao.getAllBags();
+        ArrayList<OrderDetail> listOrderDetail = OrderDetailDao.getAllOrderDetail();
+        ArrayList<Orders> listOrder = OrdersDao.getAllOrders();
+        request.getSession().setAttribute("listNews", listNews);
+        request.getSession().setAttribute("listProduct", listProduct);
+        request.getSession().setAttribute("listCategory", listCategory);
+        request.getSession().setAttribute("listBags", listBags);
+        request.getSession().setAttribute("listOrderDetail", listOrderDetail);
+        request.getSession().setAttribute("listOrder", listOrder);
+        request.getRequestDispatcher("/client/index.jsp").forward(request, response);
     }
 
     /**
