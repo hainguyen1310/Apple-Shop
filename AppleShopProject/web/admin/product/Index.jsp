@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Model.Product"%>
 <%@page import="ModelDao.ProductDao"%>
+<%@page import="ModelDao.CategoryDao"%>
 <jsp:useBean id="list" class="java.util.ArrayList" scope="session"/>
 <jsp:useBean id="product" class="Model.Product" scope="session"/>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
@@ -45,7 +46,7 @@
                     <div class="col-sm-12">
                         <section class="panel">
                             <header class="panel-heading">
-                                Quản lí người dùng
+                                Quản lí Sản phẩm
                             </header>
                             <div class="panel-body">
                                 <div class="adv-table editable-table ">
@@ -80,7 +81,7 @@
                                                     <tr class="">
                                                         <td class="center"><c:out value="${list.get(i).getProductID()}"/></td>
                                                         <td class="center"><c:out value="${list.get(i).getProductName()}"/></td>
-                                                        <td class="center"><c:out value="${list.get(i).getCategoryID()}"/></td>
+                                                        <td class="center"><c:out value="${CategoryDao.getCategorybyID(list.get(i).getCategoryID()).getCategoryName()}"/></td>
                                                         <td class="center"><c:out value="${list.get(i).getMoney()}"/></td>
                                                         <td class="center"><c:out value="${list.get(i).getStock()}"/></td>
                                                         <td class="center"><c:out value="${list.get(i).getDateUpdate()}"/></td>
