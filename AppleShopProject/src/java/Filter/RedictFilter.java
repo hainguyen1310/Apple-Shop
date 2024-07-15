@@ -102,7 +102,7 @@ public class RedictFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response; 
         request.setAttribute("link", httpRequest.getRequestURI());
         httpRequest.getRequestDispatcher("/client/HomeServlet").forward(request, response); 
-        chain.doFilter(request, response);
+        //chain.doFilter(request, response);
     }
 
     /**

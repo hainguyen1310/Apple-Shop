@@ -23,7 +23,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import static java.util.Collections.list;
 
 /**
  *

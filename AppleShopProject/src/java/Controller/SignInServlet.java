@@ -4,7 +4,9 @@
  */
 package Controller;
 
+import Model.Role;
 import Model.Users;
+import ModelDao.RoleDao;
 import ModelDao.UserDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -83,8 +85,11 @@ public class SignInServlet extends HttpServlet {
         HttpSession session = request.getSession();
         if(user){
             u.setRoleID(UserDao.getRoleByUsername(username));
+            Role role = new Role();
+            
+            role.setRoleName(RoleDao.getRolebyID(u.getRoleID()).getRoleName());
             session.setAttribute("pass", password);
-            session.setAttribute("role", u.getRoleID());
+            session.setAttribute("role", role.getRoleName());
             session.setAttribute("username", username);
             RequestDispatcher rd = request.getRequestDispatcher("/client/index.jsp");
             rd.forward(request, response);

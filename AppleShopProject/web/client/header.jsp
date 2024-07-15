@@ -60,12 +60,38 @@
             <!-- HEADER-RIGHT-MENU START -->
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="header-right-menu">
+                    <%
+                                            String username = null;
+                                            String role = null;
+
+                                            if (session != null) {
+                                                username = (String) session.getAttribute("username");
+                                                role = (String) session.getAttribute("role");
+                        }
+                                            %>
                     <nav>
                         <ul class="list-inline">
                             <li><a href="/client/checkout.html">Check Out</a></li>
                             <li><a href="/client/my-account.html">My Account</a></li>
                             <li><a href="/client/cart.html">My Cart</a></li>
+                            <% if (username == null) {
+                                                        %>
                             <li><a href="/client/registration.jsp">Sign in</a></li>
+                            <%
+                                } else if("admin".equals(role)){
+                                %>
+                            <li><a href="/admin/AdminPage.jsp">Manage</a></li>
+                            <li><span class="username"><%= username %></span></li>
+                            <li><a href="/client/Logout.jsp">Log out</a></li>
+                            <%
+                                } else {
+                            %>
+                            <li><span class="username"><%= username %></span></li>
+                            <li><a href="/client/Logout.jsp">Log out</a></li>
+                            <% 
+                            } 
+                            
+                        %>
                         </ul>									
                     </nav>
                 </div>
