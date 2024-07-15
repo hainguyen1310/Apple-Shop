@@ -192,7 +192,7 @@
                                                                     <span>1 Review (s)</span>
                                                                 </div>
                                                             </div>
-                                                            <a href="single-product.html"><c:out value="${listProduct.get(i).getProductName()}"/></a>
+                                                            <a href="CartServlet?page=single-product.jsp&id=${listProduct.get(i).getProductID()}"><c:out value="${listProduct.get(i).getProductName()}"/></a>
                                                             <div class="price-box">
                                                                 <span class="price"><c:out value="${listProduct.get(i).getMoney()}"/></span>
                                                             </div>
@@ -252,7 +252,7 @@
                                                                     <span>1 Review (s)</span>
                                                                 </div>
                                                             </div>
-                                                            <a href="single-product.html"><c:out value="${listProduct.get(i).getProductName()}"/></a>
+                                                            <a href="CartServlet?page=single-product.jsp&id=${listProduct.get(i).getProductID()}"><c:out value="${listProduct.get(i).getProductName()}"/></a>
                                                             <div class="price-box">
                                                                 <span class="price"><c:out value="${listProduct.get(i).getMoney()}"/></span>
                                                             </div>
@@ -311,7 +311,7 @@
                                                         <span>1 Review (s)</span>
                                                     </div>
                                                 </div>
-                                                <a href="single-product.html"><c:out value="${listProduct.get(i).getProductName()}"/></a>
+                                                <a href="CartServlet?page=single-product.jsp&id=${listProduct.get(i).getProductID()}"><c:out value="${listProduct.get(i).getProductName()}"/></a>
                                                 <div class="price-box">
                                                     <span class="price"><c:out value="${listProduct.get(i).getMoney()}"/></span>
                                                 </div>

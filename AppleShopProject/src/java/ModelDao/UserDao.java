@@ -78,6 +78,24 @@ public class UserDao {
         }
         return status;
     }
+    
+    public static int addClient(Users user) {
+        int status = 0;
+        try {
+            Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement("INSERT INTO Users (UserName, Email,Tel, Password, RoleID) VALUES (?,?,?,?,?)");
+            ps.setString(1, user.getUserName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getTel());
+            ps.setString(4, user.getPassword());
+            ps.setInt(5, user.getRoleID());
+            status = ps.executeUpdate();
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        }
+        return status;
+    }
 
     public static int updateUsers(Users u) {
         int status = 0;
@@ -173,5 +191,25 @@ public class UserDao {
             ex.printStackTrace();
         }
         return role;
+    }
+    
+    public static Users getUserByUsername(String uname) {
+        Users user = new Users();
+        try {
+            Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Users WHERE UserName = ?");
+            ps.setString(1, uname);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                user = new Users(rs.getInt("UserID"), rs.getString("UserName"), rs.getString("Email"),
+                        rs.getString("Tel"), rs.getString("Password"), rs.getBoolean("Status"), rs.getInt("RoleID"),
+                        rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Address"), rs.getString("Zipcode"));
+            }
+            ps.close();
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        }
+        return user;
     }
 }

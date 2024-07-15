@@ -87,7 +87,7 @@
 
         <!-- STYLE CSS 
         ============================================ -->
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="assets/css/style.css">
 
         <!-- RESPONSIVE CSS 
         ============================================ -->
@@ -170,8 +170,8 @@
                                             <a href="#"><i class="fa fa-print"></i></a>
                                             <a href="#"><i class="fa fa-heart"></i></a>
                                         </div>
-                                        <form action="action" method="post">
-                                            <input type="hidden" name="product" class="form-control" value="${product}"/>
+                                        <form action="CartServlet" method="post">
+                                            <input type="hidden" name="id" class="form-control" value="${product.getProductID()}"/>
                                             <div class="single-product-quantity">
                                                 <p class="small-title">Quantity</p> 
                                                 <div class="cart-quantity">

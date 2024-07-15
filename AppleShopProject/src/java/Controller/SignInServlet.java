@@ -61,7 +61,33 @@ public class SignInServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String uname = request.getParameter("user");
+        String upass = request.getParameter("pass");
+        String uemail = request.getParameter("email");
+        String telphone = request.getParameter("telphone");
+
+        Users user = new Users();
+        user.setUserName(uname);
+        user.setPassword(upass);
+        user.setEmail(uemail);
+        user.setTel(telphone);
+        user.setRoleID(2);
+        int status = UserDao.addClient(user);
+        HttpSession session = request.getSession();
+        if (status > 0) {
+            session.setAttribute("username", uname);
+            Role role = new Role();
+            
+            role.setRoleName(RoleDao.getRolebyID(user.getRoleID()).getRoleName());
+            session.setAttribute("pass", upass);
+            session.setAttribute("role", role.getRoleName());
+            session.setAttribute("username", uname);
+            RequestDispatcher rd = request.getRequestDispatcher("/client/index.jsp");
+            rd.forward(request, response);
+        } else {
+            RequestDispatcher rd = request.getRequestDispatcher("/client/registration.jsp");
+            rd.include(request, response);
+        }
     }
 
     /**
@@ -83,14 +109,14 @@ public class SignInServlet extends HttpServlet {
         u.setPassword(password);
         boolean user = UserDao.validate(u);
         HttpSession session = request.getSession();
+        session.setAttribute("username", username);
+        session.setAttribute("pass", password);
         if(user){
             u.setRoleID(UserDao.getRoleByUsername(username));
             Role role = new Role();
             
             role.setRoleName(RoleDao.getRolebyID(u.getRoleID()).getRoleName());
-            session.setAttribute("pass", password);
             session.setAttribute("role", role.getRoleName());
-            session.setAttribute("username", username);
             RequestDispatcher rd = request.getRequestDispatcher("/client/index.jsp");
             rd.forward(request, response);
         } else {

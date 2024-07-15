@@ -1,7 +1,7 @@
 <%-- 
-    Document   : cart
-    Created on : Jul 15, 2024, 10:24:24 AM
-    Author     : PC
+    Document   : checkout
+    Created on : Jul 15, 2024, 1:04:16 PM
+    Author     : kivil
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -19,10 +19,11 @@
 <!--[if IE 9 ]>    <html lang="en" class="ie9">    <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
 
+
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Cart</title>
+        <title>Checkout</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -38,7 +39,7 @@
 
         <!-- animate CSS
         ============================================ -->
-        <link rel="stylesheet" href="assets/css/animate.css">		
+        <link rel="stylesheet" href="assets/css/animate.css">				
 
         <!-- FANCYBOX CSS
         ============================================ -->			
@@ -117,35 +118,32 @@
                         <div class="bstore-breadcrumb">
                             <a href="index.jsp">HOMe</a>
                             <span><i class="fa fa-caret-right"></i></span>
-                            <span>Your shopping cart</span>
+                            <span>Your payment method</span>
                         </div>
                         <!-- BSTORE-BREADCRUMB END -->
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <!-- SHOPPING-CART SUMMARY START -->
-                        <h2 class="page-title">Shopping-cart summary <span class="shop-pro-item">Your shopping cart contains: 2 products</span></h2>
-                        <!-- SHOPPING-CART SUMMARY END -->
+                        <h2 class="page-title">Choose your payment method <span class="shop-pro-item">Your shopping cart contains: 3 products </span></h2>
                     </div>	
-
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <!-- SHOPING-CART-MENU START -->
                         <div class="shoping-cart-menu">
                             <ul class="step">
-                                <li class="step-current first">
-                                    <span>01. Summary</span>
+                                <li class="step-todo first step-done">
+                                    <span><a href="cart.jsp">01. Summary</a></span>
                                 </li>
-                                <li class="step-todo second">
-                                    <span>02. Sign in</span>
+                                <li class="step-todo second step-done">
+                                    <span><a href="checkout-signin.html">02. Sign in</a></span>
                                 </li>
-                                <li class="step-todo third">
-                                    <span>03. Address</span>
+                                <li class="step-todo third step-done">
+                                    <span><a href="checkout-address.html">03. Address</a></span>
                                 </li>
-                                <li class="step-todo four">
-                                    <span>04. Shipping</span>
+                                <li class="step-todo four step-done">
+                                    <span><a href="checkout-shipping.html">04. Shipping</a></span>
                                 </li>
-                                <li class="step-todo last" id="step_end">
+                                <li class="step-current last" id="step_end">
                                     <span>05. Payment</span>
                                 </li>
                             </ul>									
@@ -159,9 +157,9 @@
                                 <thead>
                                     <tr>
                                         <th class="cart-product">Product</th>
-                                        <th class="cart-description text-center">Description</th>   
-                                        <th class="cart-unit text-center">Availability</th>
-                                        <th class="cart_quantity text-center">Unit Price</th>
+                                        <th class="cart-description">Description</th>
+                                        <th class="cart-availability text-center">Availability</th>
+                                        <th class="cart-unit text-right">Unit price</th>
                                         <th class="cart_quantity text-center">Qty</th>
                                         <th class="cart-delete">&nbsp;</th>
                                         <th class="cart-total text-right">Total</th>
@@ -206,84 +204,70 @@
                                 </tbody>
                                 <!-- TABLE BODY END -->
                                 <!-- TABLE FOOTER START -->
-                                <tfoot>										
-                                    <tr class="cart-total-price">
-                                        <td class="cart_voucher" colspan="3" rowspan="4"></td>
-                                        <td class="text-right" colspan="3">Total products (tax excl.)</td>
-                                        <td id="total_product" class="price" colspan="1">$<c:out value="${total}"></c:out></td>
+                                <tfoot>
+                                    <tr>
+                                        <td class="text-right" colspan="4">Total products</td>
+                                        <td class="price" colspan="2">$<c:out value="${total}"></c:out></td>
                                     </tr>
                                     <tr>
-                                        <td class="text-right" colspan="3">Total shipping</td>
-                                        <td id="total_shipping" class="price" colspan="1">$2.00</td>
+                                        <td class="text-right" colspan="4">Total gift wrapping cost:</td>
+                                        <td class="price" colspan="2">$0.00</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-right" colspan="3">Total vouchers (tax excl.)</td>
-                                        <td class="price" colspan="1">$0.00</td>
+                                        <td class="text-right" colspan="4">Total shipping</td>
+                                        <td class="price" colspan="2">$2.00</td>
                                     </tr>
                                     <tr>
-                                        <td class="total-price-container text-right" colspan="3">
+                                        <td class="text-right" colspan="4">Total vouchers</td>
+                                        <td class="price" colspan="2">$0.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="total-price-container text-right" colspan="4">
                                             <span>Total</span>
                                         </td>
-                                        <td id="total-price-container" class="price" colspan="1">
+                                        <td id="total-price-container" class="price" colspan="2">
                                             <span id="total-price">$<c:out value="${total+2}"></c:out></span>
                                         </td>
                                     </tr>
-                                </tfoot>		
-                                <!-- TABLE FOOTER END -->									
+                                </tfoot>
+                                <!-- TABLE FOOTER END -->								
                             </table>
                             <!-- TABLE END -->
                         </div>
                         <!-- CART TABLE_BLOCK END -->
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <div class="first_item primari-box mycartaddress-info">
-                            <!-- SINGLE ADDRESS START -->
-                            <ul class="address">
-                                <li>
-                                    <h3 class="page-subheading box-subheading">
-                                        Delivery address (BootExperts Office)
-                                    </h3>
-                                </li>
-                                <li><span class="address_name">BootExperts</span></li>
-                                <li><span class="address_company">Web development Company</span></li>
-                                <li><span class="address_address1">Bonossri</span></li>
-                                <li><span class="address_address2">D-Block</span></li>
-                                <li><span class="">Rampura</span></li>
-                                <li><span class="">Dhaka</span></li>
-                                <li><span class="address_phone">+880 1735161598</span></li>
-                                <li><span class="address_phone_mobile">+880 1975161598</span></li>
-                            </ul>	
-                            <!-- SINGLE ADDRESS END -->
-                        </div>						
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <div class="second_item primari-box mycartaddress-info">
-                            <!-- SINGLE ADDRESS START -->
-                            <ul class="address">
-                                <li>
-                                    <h3 class="page-subheading box-subheading">
-                                        Invoice address (BootExperts Home)
-                                    </h3>
-                                </li>
-                                <li><span class="address_name">BootExperts</span></li>
-                                <li><span class="address_company">Web development Company</span></li>
-                                <li><span class="address_address1">Dhaka</span></li>
-                                <li><span class="address_address2">Bonossri</span></li>
-                                <li><span class="">Dhaka-1205</span></li>
-                                <li><span class="">Rampura</span></li>
-                                <li><span class="address_phone">+880 1735161598</span></li>
-                                <li><span class="address_phone_mobile">+880 1975161598</span></li>
-                            </ul>	
-                            <!-- SINGLE ADDRESS END -->
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <!-- FOUR-PAYMENT-METHOD START -->
+                        <div class="four-payment-method">
+                            <!-- SINGLE-PAYMENT-METHOD START -->
+                            <div class="single-payment-method payment-method-one">
+                                <a href="#">Pay by bank wire<span> (order processing will be longer)</span><i class="fa fa-chevron-right"></i></a>
+                            </div>
+                            <!-- SINGLE-PAYMENT-METHOD END -->
+                            <!-- SINGLE-PAYMENT-METHOD START -->
+                            <div class="single-payment-method payment-method-two">
+                                <a href="#">Pay by check<span> (order processing will be longer)</span><i class="fa fa-chevron-right"></i></a>
+                            </div>
+                            <!-- SINGLE-PAYMENT-METHOD END -->
+                            <!-- SINGLE-PAYMENT-METHOD START -->							
+                            <div class="single-payment-method payment-method-three">
+                                <a href="#">Pay by paypal<span> (order processing will be longer)</span><i class="fa fa-chevron-right"></i></a>
+                            </div>
+                            <!-- SINGLE-PAYMENT-METHOD END -->
+                            <!-- SINGLE-PAYMENT-METHOD START -->							
+                            <div class="single-payment-method payment-method-four">
+                                <a href="#">Pay by master card<span> (order processing will be longer)</span><i class="fa fa-chevron-right"></i></a>
+                            </div>	
+                            <!-- SINGLE-PAYMENT-METHOD END -->							
                         </div>
+                        <!-- FOUR-PAYMENT-METHOD END -->
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <!-- RETURNE-CONTINUE-SHOP START -->
                         <div class="returne-continue-shop">
                             <a href="index.jsp" class="continueshoping"><i class="fa fa-chevron-left"></i>Continue shopping</a>
-                            <a href="checkout.jsp" class="procedtocheckout">Proceed to checkout<i class="fa fa-chevron-right"></i></a>
                         </div>	
-                        <!-- RETURNE-CONTINUE-SHOP END -->						
+                        <!-- RETURNE-CONTINUE-SHOP END -->								
                     </div>
                 </div>
             </div>

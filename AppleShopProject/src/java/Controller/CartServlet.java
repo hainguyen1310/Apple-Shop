@@ -4,11 +4,18 @@
  */
 package Controller;
 
+import Model.Bags;
 import Model.Product;
+import Model.Users;
+import ModelDao.BagsDao;
+import ModelDao.ProductDao;
+import ModelDao.UserDao;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -56,7 +63,12 @@ public class CartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        int id = Integer.parseInt(request.getParameter("id"));
+        Product product = ProductDao.getProductbyID(id);
+        request.getSession().setAttribute("product", product);
+        RequestDispatcher rd = request.getRequestDispatcher("single-product.jsp");
+        rd.forward(request, response);
     }
 
     /**
@@ -70,8 +82,15 @@ public class CartServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        int product = request.getParameter("product");
+        int id = Integer.parseInt(request.getParameter("id"));
+        int qty = Integer.parseInt(request.getParameter("qtybutton"));
+        HttpSession session = request.getSession();
+        String username = (String)session.getAttribute("username");
+        Users user = UserDao.getUserByUsername(username);
+        Bags bag = new Bags(user.getUserID(),id,true,qty);
+        BagsDao.addBags(bag);
+        RequestDispatcher rd = request.getRequestDispatcher("/client/index.jsp");
+        rd.forward(request, response);
     }
 
     /**

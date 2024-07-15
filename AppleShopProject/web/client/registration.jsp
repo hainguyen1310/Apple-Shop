@@ -124,21 +124,33 @@
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 						<!-- CREATE-NEW-ACCOUNT START -->
 						<div class="create-new-account">
-							<form class="new-account-box primari-box" id="create-new-account" method="post" action="#">
+							<form class="new-account-box primari-box" id="create-new-account" method="get" action="SignInServlet">
 								<h3 class="box-subheading">Create an account</h3>
 								<div class="form-content">
-									<p>Please enter your email address to create an account.</p>
+									
 									<div class="form-group primary-form-group">
-										<label for="email">Email address</label>
-										<input type="text" value="" name="email" id="email" class="form-control input-feild" required>
+										<label for="user">Enter User Name</label>
+										<input type="text" value="" name="user" id="user" class="form-control input-feild" required>
+									</div>
+									<div class="form-group primary-form-group">
+										<label for="pass">Enter Password</label>
+										<input type="password" value="" name="pass" id="pass" class="form-control input-feild" required>
+									</div>
+									<div class="form-group primary-form-group">
+										<label for="email">Enter Email Address</label>
+										<input type="email" value="" name="email" id="email" class="form-control input-feild" required>
+									</div>
+                                                                        <div class="form-group primary-form-group">
+										<label for="email">Enter Telphone</label>
+										<input type="text" value="" name="telphone" id="email" class="form-control input-feild" required>
 									</div>
 									<div class="submit-button">
-										<a href="checkout-registration.html" id="SubmitCreate" class="btn main-btn">
+										<button type="submit"  id="SubmitCreate" class="btn main-btn">
 											<span>
 												<i class="fa fa-user submit-icon"></i>
 												Create an account
 											</span>											
-										</a>
+										</button>
 									</div>
 								</div>
 							</form>							

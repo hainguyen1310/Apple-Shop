@@ -71,9 +71,9 @@
                                             %>
                     <nav>
                         <ul class="list-inline">
-                            <li><a href="/client/checkout.html">Check Out</a></li>
+                            <li><a href="/client/checkout.jsp">Check Out</a></li>
                             <li><a href="/client/my-account.html">My Account</a></li>
-                            <li><a href="/client/cart.html">My Cart</a></li>
+                            <li><a href="/client/cart.jsp">My Cart</a></li>
                             <% if (username == null) {
                                                         %>
                             <li><a href="/client/registration.jsp">Sign in</a></li>
@@ -155,7 +155,7 @@
                             <b>My Cart</b>
                             <span class="ajax-cart-quantity"><c:out value="${listBags.size()}"/></span>
                         </a>
-                        <div class="shipping-cart-overly">
+                        <div class="shipping-cart-overly" style="overflow: scroll;">
                             <c:set var="total" value="0" />
                             <c:forEach var="i" begin="0" end="${listBags.size()-1}">
                                 <div class="shipping-item">
@@ -183,7 +183,7 @@
                                 </div>										
                             </div>
                             <div class="shipping-checkout-btn">
-                                <a href="/client/checkout.html">Check out <i class="fa fa-chevron-right"></i></a>
+                                <a href="/client/checkout.jsp">Check out <i class="fa fa-chevron-right"></i></a>
                             </div>
                         </div>
                     </div>

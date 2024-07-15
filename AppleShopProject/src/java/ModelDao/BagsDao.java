@@ -102,4 +102,23 @@ public class BagsDao {
         }
         return bags;
     }
+    
+    public static ArrayList<Bags> getBagsbyID( int UserID) {
+        ArrayList<Bags> list = new ArrayList<Bags>();
+        try {
+            Connection con = DBConnection.getConnection();
+            PreparedStatement cstmt = con.prepareCall("select * from Bags where UserID = ?");
+            cstmt.setInt(1, UserID);
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+                list.add( new Bags(rs.getInt("UserID"), rs.getInt("ProductID"), rs.getBoolean("Status"),
+                        rs.getInt("Stock")));
+            }
+            cstmt.close();
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        }
+        return list;
+    }
 }
