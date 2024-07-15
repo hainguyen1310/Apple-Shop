@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    <filter>
+        <filter-name>RedictFilter</filter-name>
+        <filter-class>Filter.RedictFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>RedictFilter</filter-name>
+        <url-pattern>/client/*</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>ProductServlet</servlet-name>
         <servlet-class>Controller.ProductServlet</servlet-class>
@@ -23,6 +31,10 @@
     <servlet>
         <servlet-name>CategoryServlet</servlet-name>
         <servlet-class>Controller.CategoryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>Controller.HomeServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RoleServlet</servlet-name>
@@ -51,6 +63,10 @@
     <servlet-mapping>
         <servlet-name>CategoryServlet</servlet-name>
         <url-pattern>/admin/CategoryServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeServlet</servlet-name>
+        <url-pattern>/client/HomeServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>
