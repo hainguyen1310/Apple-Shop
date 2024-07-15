@@ -101,7 +101,7 @@ public class RedictFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response; 
         
-        
+        chain.doFilter(request, response);
     }
 
     /**
