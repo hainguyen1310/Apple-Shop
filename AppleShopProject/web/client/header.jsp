@@ -64,7 +64,7 @@
                             <li><a href="/client/checkout.html">Check Out</a></li>
                             <li><a href="/client/my-account.html">My Account</a></li>
                             <li><a href="/client/cart.html">My Cart</a></li>
-                            <li><a href="/client/registration.html">Sign in</a></li>
+                            <li><a href="/client/registration.jsp">Sign in</a></li>
                         </ul>									
                     </nav>
                 </div>

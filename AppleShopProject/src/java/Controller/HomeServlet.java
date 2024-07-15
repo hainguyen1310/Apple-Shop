@@ -82,7 +82,8 @@ public class HomeServlet extends HttpServlet {
         request.getSession().setAttribute("listBags", listBags);
         request.getSession().setAttribute("listOrderDetail", listOrderDetail);
         request.getSession().setAttribute("listOrder", listOrder);
-        request.getRequestDispatcher("/client/index.jsp").forward(request, response);
+        String link = (String) request.getAttribute("link");
+        request.getRequestDispatcher(link).forward(request, response);
     }
 
     /**
